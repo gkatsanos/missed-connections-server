@@ -1,0 +1,137 @@
+const mongoose = require('mongoose');
+const httpStatus = require('http-status');
+const { omitBy, isNil } = require('lodash');
+const bcrypt = require('bcryptjs');
+const moment = require('moment-timezone');
+const jwt = require('jwt-simple');
+const boom = require('boom');
+const { converter } = require('../middlewares/error');
+const { env, jwtSecret, jwtExpirationInterval } = require('../config/vars');
+
+/**
+ * User Schema
+ * @private
+ */
+const userSchema = new mongoose.Schema({
+  email: {
+    type: String,
+    required: true,
+    unique: true,
+    trim: true,
+    lowercase: true,
+  },
+  password: {
+    type: String,
+    required: true,
+    minlength: 4,
+    maxlength: 128,
+  },
+  firstName: {
+    type: String,
+    required: true,
+    maxlength: 128,
+    trim: true,
+  },
+  lastName: {
+    type: String,
+    required: true,
+    maxlength: 128,
+    trim: true,
+  },
+  active: {
+    type: Boolean,
+    default: false,
+  },
+  gender: String,
+  picture: String,
+  location: String,
+  tokens: Array,
+  activationId: String,
+}, {
+  timestamps: true,
+});
+
+/**
+ * Add your
+ * - pre-save hooks
+ * - validations
+ * - virtuals
+ */
+// @TODO change this to real validation
+// https://stackoverflow.com/questions/13580589/mongoose-unique-validation-error-type
+userSchema.pre('save', async function save(next) {
+  try {
+    if (!this.isModified('password')) return next();
+
+    const rounds = env === 'test' ? 1 : 10;
+
+    const hash = await bcrypt.hash(this.password, rounds);
+    this.password = hash;
+
+    return next();
+  } catch (err) {
+    return converter(err);
+  }
+});
+
+/**
+ * Methods
+ */
+userSchema.method({
+  transform() {
+    const transformed = {};
+    const fields = ['email', 'id', 'firstName', 'lastName', 'createdAt'];
+
+    fields.forEach((field) => {
+      transformed[field] = this[field];
+    });
+
+    return transformed;
+  },
+
+  token() {
+    const payload = {
+      exp: moment().add(jwtExpirationInterval, 'minutes').unix(),
+      iat: moment().unix(),
+      sub: this._id,
+    };
+    return jwt.encode(payload, jwtSecret);
+  },
+
+  async passwordMatches(password) {
+    return bcrypt.compare(password, this.password);
+  },
+});
+
+/**
+ * Statics
+ */
+userSchema.statics = {
+
+  /**
+   * Find user by email and tries to generate a JWT token
+   *
+   * @param {ObjectId} id - The objectId of user.
+   * @returns {Promise<User, Error>}
+   */
+  async findAndGenerateToken(options) {
+    const { email, password, refreshObject } = options;
+    const user = await this.findOne({ email }).exec();
+    const err = {
+      status: httpStatus.UNAUTHORIZED,
+      isPublic: true,
+    };
+    if (user && await user.passwordMatches(password)) {
+      return { user, accessToken: user.token() };
+    } else if (refreshObject && refreshObject.userEmail === email) {
+      return { user, accessToken: user.token() };
+    }
+    throw boom.unauthorized('Incorrect email or password');
+  },
+
+};
+
+/**
+ * @typedef User
+ */
+module.exports = mongoose.model('User', userSchema);
