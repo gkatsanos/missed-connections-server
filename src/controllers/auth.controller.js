@@ -40,7 +40,7 @@ function sendValidationEmail(activationId) {
       from: '"Fred Foo 👻" <foo@blurdybloop.com>', // sender address
       to: 'crsej42ei5wvs3m2@ethereal.email', // list of receivers
       subject: 'Validation', // Subject line
-      html: `<a href="http://localhost:8080/auth/${activationId}">click this</a>`, // html body
+      html: `<a href="${process.env.CLIENT_URI}auth/${activationId}">click this</a>`, // html body
     };
 
     // send mail with defined transport object
