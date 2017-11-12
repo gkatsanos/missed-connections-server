@@ -1,4 +1,4 @@
 version: "2"
 services:
-  boilerplate-api:
+  isawyou-server:
     command: yarn start

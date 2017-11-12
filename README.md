@@ -1,7 +1,8 @@
 # The Server
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com) [![npm version](https://badge.fury.io/js/express-rest-es2017-boilerplate.svg)](https://badge.fury.io/js/express-rest-es2017-boilerplate) [![Build Status](https://travis-ci.org/danielfsousa/express-rest-es2017-boilerplate.svg?branch=master)](https://travis-ci.org/danielfsousa/express-rest-es2017-boilerplate) [![Coverage Status](https://coveralls.io/repos/github/danielfsousa/express-rest-es2017-boilerplate/badge.svg?branch=master)](https://coveralls.io/github/danielfsousa/express-rest-es2017-boilerplate?branch=master) [![bitHound Overall Score](https://www.bithound.io/github/danielfsousa/express-rest-es2017-boilerplate/badges/score.svg)](https://www.bithound.io/github/danielfsousa/express-rest-es2017-boilerplate) [![Greenkeeper badge](https://badges.greenkeeper.io/danielfsousa/express-rest-es2017-boilerplate.svg)](https://greenkeeper.io/)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com) [![Build Status](https://travis-ci.org/gkatsanos/isawyou-server.svg?branch=master)](https://travis-ci.org/gkatsanos/isawyou-server) 
+[![Coverage Status](https://coveralls.io/repos/github/gkatsanos/isawyou-server/badge.svg?branch=master)](https://coveralls.io/github/gkatsanos/isawyou-server?branch=master)
 
-Boilerplate/Generator/Starter Project for building RESTful APIs and microservices using Node.js, Express and MongoDB
+The Server Part of a Vue/Mongo/Express/Node application.
 
 ## Features
 
@@ -12,9 +13,7 @@ Boilerplate/Generator/Starter Project for building RESTful APIs and microservice
  - Express + MongoDB ([Mongoose](http://mongoosejs.com/))
  - Consistent coding styles with [editorconfig](http://editorconfig.org)
  - [Docker](https://www.docker.com/) support
- - Uses [helmet](https://github.com/helmetjs/helmet) to set some HTTP headers for security
  - Load environment variables from .env files with [dotenv](https://github.com/rolodato/dotenv-safe)
- - Request validation with [joi](https://github.com/hapijs/joi)
  - Gzip compression with [compression](https://github.com/expressjs/compression)
  - Linting with [eslint](http://eslint.org)
  - Tests with [mocha](https://mochajs.org), [chai](http://chaijs.com) and [sinon](http://sinonjs.org)
@@ -36,8 +35,8 @@ Boilerplate/Generator/Starter Project for building RESTful APIs and microservice
 Clone the repo and make it yours:
 
 ```bash
-git clone --depth 1 https://github.com/danielfsousa/express-rest-es2017-boilerplate
-cd express-rest-es2017-boilerplate
+git clone --depth 1 https://github.com/gkatsanos/isawyou-server
+cd isawyou-server
 rm -rf .git
 ```
 
@@ -65,33 +64,11 @@ yarn dev
 yarn start
 ```
 
-## Lint
-
-```bash
-# lint code with ESLint
-yarn lint
-
-# try to fix ESLint errors
-yarn lint:fix
-
-# lint and watch for changes
-yarn lint:watch
-```
-
 ## Test
 
 ```bash
 # run all tests with Mocha
 yarn test
-
-# run unit tests
-yarn test:unit
-
-# run integration tests
-yarn test:integration
-
-# run all tests and watch for changes
-yarn test:watch
 
 # open nyc test coverage reports
 yarn coverage

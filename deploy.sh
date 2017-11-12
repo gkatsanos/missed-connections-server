@@ -1,12 +1,12 @@
 #!/bin/bash
-docker build -t danielfsousa/express-rest-es2017-boilerplate .
-docker push danielfsousa/express-rest-es2017-boilerplate
+docker build -t gkatsanos/isawyou-server .
+docker push gkatsanos/isawyou-server
 
 ssh deploy@$DEPLOY_SERVER << EOF
-docker pull danielfsousa/express-rest-es2017-boilerplate
-docker stop api-boilerplate || true
-docker rm api-boilerplate || true
-docker rmi danielfsousa/express-rest-es2017-boilerplate:current || true
-docker tag danielfsousa/express-rest-es2017-boilerplate:latest danielfsousa/express-rest-es2017-boilerplate:current
-docker run -d --restart always --name api-boilerplate -p 3000:3000 danielfsousa/express-rest-es2017-boilerplate:current
+docker pull gkatsanos/isawyou-server
+docker stop isawyou-server || true
+docker rm isawyou-server || true
+docker rmi gkatsanos/isawyou-server:current || true
+docker tag gkatsanos/isawyou-server:latest gkatsanos/isawyou-server:current
+docker run -d --restart always --name isawyou-server -p 3000:3000 gkatsanos/isawyou-server:current
 EOF
