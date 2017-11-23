@@ -1,18 +1,4 @@
 version: "2"
 services:
-  sut:
+  isawyou-server:
     command: yarn test
-    build: .
-    environment:
-      - MONGO_URI=mongodb://mongodb:27017/isawyou-test
-    volumes:
-      - .:/app
-    ports:
-      - "3000:3000"
-    depends_on:
-      - mongodb
-
-  mongodb:
-    image: mongo
-    ports:
-      - "27017:27017"

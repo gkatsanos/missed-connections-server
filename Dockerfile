@@ -11,5 +11,4 @@ ADD package.json yarn.lock seed.js /app/
 RUN yarn --pure-lockfile
 ADD . /app
 
-CMD ["yarn seed"]
-CMD ["yarn", "docker:start"]
+CMD ["yarn", "start"]

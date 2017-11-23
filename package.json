@@ -11,9 +11,9 @@
     "npm": "^5.0.0"
   },
   "scripts": {
-    "start": "cross-env NODE_ENV=production node ./src/index.js",
+    "start": "NODE_ENV=production node ./src/index.js",
     "dev": "nodemon ./src/index.js",
-    "test": "cross-env NODE_ENV=test nyc --reporter=html --reporter=text mocha --timeout 20000 --recursive src/tests",
+    "test": "NODE_ENV=test nyc --reporter=html --reporter=text mocha --timeout 20000 --recursive src/tests",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "postcoverage": "opn coverage/lcov-report/index.html",
     "validate": "yarn test",
@@ -21,10 +21,9 @@
     "deploy": "sh ./deploy.sh",
     "docs": "apidoc -i src -o docs",
     "postdocs": "opn docs/index.html",
-    "docker:start": "cross-env NODE_ENV=production pm2-docker start ./src/index.js",
     "docker:prod": "docker-compose -f docker-compose.yml -f docker-compose.prod.yml up",
     "docker:dev": "docker-compose -f docker-compose.yml -f docker-compose.dev.yml up",
-    "docker:test": "docker-compose -f docker-compose.yml -f docker-compose.test.yml up --abort-on-container-exit",
+    "docker:test": "docker-compose -f docker-compose.yml -f docker-compose.test.yml up --abort-on-container-e",
     "seed": "node ./seed.js"
   },
   "repository": {
