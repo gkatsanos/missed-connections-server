@@ -1,4 +1,19 @@
-version: "2"
+version: "3"
 services:
-  isawyou-server:
+  sut:
+    build: .
     command: yarn test
+    environment:
+      - PORT
+      - MONGO_URI
+      - JWT_SECRET
+      - JWT_EXPIRATION_MINUTES
+      - CLIENT_URI
+      - MONGO_URI_TESTS
+    depends_on:
+      - mongodb
+
+  mongodb:
+    image: mongo
+    ports:
+      - "27017:27017"

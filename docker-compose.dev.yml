@@ -1,4 +1,4 @@
-version: "2"
+version: "3"
 services:
-  isawyou-server:
-    command: yarn dev -L
+  server:
+    command: yarn dev
