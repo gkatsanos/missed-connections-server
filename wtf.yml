@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: myserver
+  labels:
+    purpose: demonstrate-envars
+spec:
+  containers:
+  - name: myserver
+    image: gkatsanos/server
+    env:
+    - name: JWT_EXPIRATION_MINUTES
+      value: "1140"
+    - name: JWT_SECRET
+      value: "XXX"
+    - name: MONGO_URI
+      value: "mongodb://mongodb:27017/isawyou"
+    - name: CLIENT_URI
+      value: "//localhost:8080/"
+    - name: MONGO_URI_TESTS
+      value: "mongodb://mongodb:27017/isawyou-test"
+    - name: PORT
+      value: "3000"

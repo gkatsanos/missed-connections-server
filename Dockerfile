@@ -7,7 +7,7 @@ ENV NODE_ENV $NODE_ENV
 
 RUN mkdir /app
 WORKDIR /app
-ADD package.json yarn.lock seed.js /app/
+ADD package.json yarn.lock /app/
 RUN yarn --pure-lockfile
 ADD . /app
 
