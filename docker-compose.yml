@@ -1,6 +1,8 @@
 version: "3"
 services:
   server:
+    build:
+      context: .
     image: gkatsanos/server
     environment:
       - MONGO_URI=mongodb://mongodb:27017/isawyou
