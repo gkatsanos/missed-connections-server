@@ -6,7 +6,7 @@ git:
 branches:
   only:
   - master
-  - /^greenkeeper/.*$/
+  - "/^greenkeeper/.*$/"
 env:
   global:
   - NODE_ENV=test
@@ -17,5 +17,5 @@ after_script: greenkeeper-lockfile-upload
 deploy:
   provider: heroku
   api_key:
-    secure: ecllzun0MWwdPC+uXLOSWZ0Yv6J1LYZnRabNVgv1XB6PoCUQoNHU3QYxf2ySSbjRpxdGAUnhwD432u18njhHs5mZiWKEr4TwbQJSjFlllJj5uQ8J/GcKVO98CnvTWnLsAvB44kg1k1tajWtiJrweL6iTHqz8830qW/aMn3VfYeJuaFDCe9VENZY/bxuuurCUAiRV73FvQ4+1e3VHaM231d60rROJdatWaaeJnDZMT2JPwENd6ga1jP8CR/9aKEMyPR1muKSfW4hz/olKJUwWcasBzX2vJ+3hO2OJ9mpzU3E6rt/IpWjKA3vdshYNSz95V32SHzi68OyptWR4x65M+taSYmUFIspbl+O/tCE5G7rSXoUVmZ+MGB55W4gPC5AssVbfwmWNbsIbBKSeJdMzQXFx6aCHAN7eI4MELdFp0ZsLRaprtvehMqj/R0dJu7M5KsfqqXulI07Ay+fYHtazJpsWdhPGiNlnBk9GPnq2hjDRiB0dHEBV1KZbgjIusnV/C9z4YYF5MoGTYGL16fGbNw+UQgD2LxKjEkzPNxhifSvrxEKj/aYopwqWy4K8MfWhUDTm5mSBb3ZiTm97dP71a8co2ddCzjm0vSV9s5pGEzw88WXBQyX+e5PwhK60dKzfyIozPIO6vpi8ydcG50joWxNiwuVl/H1oYPdPZ4HWL30=
+    secure: WGveC2IEGdboqPf8Kgxwcp4Sst9oAHtlaF6y8WVmZx3Pkec+n5R+Ih7JShxl1Zfl4TIcZXkuzWee00hR9CGfns0BuNli0auRFrH68BdxjrJ5gDeArNbqDNAqdSj0zm/mX2i+miOcNpiSpcdTFPrUHKZenAs6FAYd+L/3yupwHwYCoOTd4avrYg8G+jVQ9VBKDz59hE/3CiSe3Ub5J+n+hBICm8pTU9TY9C1LcNWkOUGcKnubjH0Z+cmdK5z/5I8u17i3CwSrF+gZajRSpybCT8qWEGlL/Xak3hGCUK7vIRxQpQpA6J0DmO9KBWGjNCBZtg8Z3PFysiNl7qCGc+8PTHVESD+ElTXDTJeVSkEIwD65H1o+QfgqaCrc65IlSZyVgXAL5ChgDQghmn6Nn/sli+g0HXk7LZfy49hmcn4Zr/CDCB/ErVhRNNEambwzvM9KJUQjXd2mQt5n/eUFy662wBiMiOXju7IeR7EVZv/fZAibZjnX7An/Q0jTDoCIov725Lq6z0e5u65XBtPeCXoBdY5J+TXisUkbrXorxX63E6uxwJVu2xD0OxwwDmlRdCP4wjTjOzx8H2NGJ+L2rWrmADnylRWDj1LDdpnGOE1SlNSB+NaDtUSlmsxpOmnG38q6Y/VfIxaG0C4jSIKwkIhIsZcFET3AEaapEbaYPzDXpS8=
 after_success: yarn coverage
