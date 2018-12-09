@@ -28,11 +28,10 @@ function sendValidationEmail(activationId) {
     const transporter = nodemailer.createTransport({
       host: 'smtp.ethereal.email',
       port: 587,
-      secure: false, // true for 465, false for other ports
       auth: {
-        user: 'crsej42ei5wvs3m2@ethereal.email', // generated ethereal user
-        pass: 'FdeMC5xEm7qcWuMGr6', // generated ethereal password
-      },
+        user: 'mqv23wg64gvpwgmf@ethereal.email',
+        pass: 'vzRdPkTdwNFxm6wBG1'
+      }
     });
 
     // setup email data with unicode symbols

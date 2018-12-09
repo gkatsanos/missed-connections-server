@@ -27,7 +27,7 @@ module.exports = {
       boomedError.output.payload.stack = err ? err.stack : undefined;
       return module.exports.responder(boomedError, req, res);
     }
-    const boomedError = boom.boomify(err, { statusCode: 422 });
+    const boomedError = boom.boomify(err, { status: 422 });
     return module.exports.responder(boomedError, req, res);
   },
 

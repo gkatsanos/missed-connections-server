@@ -28,7 +28,7 @@ router
    * @apiError (Unauthorized 401)  Unauthorized  Only authenticated users can access the data
    * @apiError (Forbidden 403)     Forbidden     Only admins can access the data
    */
-  .get(controller.list);
+  .get(authorize(), controller.list);
   /**
    * @api {post} /users Create User
    * @apiDescription Create a new user
