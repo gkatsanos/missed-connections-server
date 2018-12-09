@@ -2,3 +2,5 @@ version: "3"
 services:
   server:
     command: yarn dev
+    ports:
+      - "9229:9229"

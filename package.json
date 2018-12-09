@@ -6,13 +6,13 @@
   "main": "src/index.js",
   "private": false,
   "engines": {
-    "node": "^8.0.0",
+    "node": "^10.0.0",
     "yarn": "^1.2.1",
     "npm": "^5.0.0"
   },
   "scripts": {
     "start": "NODE_ENV=production node ./src/index.js",
-    "dev": "nodemon ./src/index.js",
+    "dev": "LOG_LEVEL=debug nodemon --inspect-brk=0.0.0.0 ./src/index.js",
     "test": "NODE_ENV=test nyc --reporter=html --reporter=text mocha --timeout 20000 --recursive src/tests",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "postcoverage": "opn coverage/lcov-report/index.html",
@@ -92,7 +92,7 @@
     "eslint-config-airbnb-base": "^11.2.0",
     "eslint-plugin-import": "^2.2.0",
     "mocha": "^3.3.0",
-    "nodemon": "^1.11.0",
+    "nodemon": "^1.18.7",
     "nyc": "^11.0.3",
     "opn-cli": "^3.1.0",
     "sinon": "^3.0.0",
