@@ -64,7 +64,6 @@ function sendValidationEmail(activationId) {
  */
 exports.register = async (req, res, next) => {
   try {
-    validationResult(req).throw();
     const user = new User(req.body);
     const token = generateTokenResponse(user, user.token());
     const userTransformed = user.transform();
@@ -85,7 +84,6 @@ exports.register = async (req, res, next) => {
  */
 exports.login = async (req, res, next) => {
   try {
-    validationResult(req).throw();
     const { user, accessToken } = await User.findAndGenerateToken(req.body);
     const token = generateTokenResponse(user, accessToken);
     const userTransformed = user.transform();
