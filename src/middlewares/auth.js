@@ -1,21 +1,12 @@
 const passport = require('passport');
-const boom = require('boom');
+const Boom = require('boom');
 
 const handleJWT = (req, res, next) => async (err, user, info) => {
   const error = err || info;
-  const logIn = Promise.promisify(req.logIn);
-  const boomedError = boom.unauthorized('Unauthorized');
-  boomedError.output.payload.stack = error ? error.stack : undefined;
-
-  try {
-    if (error || !user) throw error;
-    await logIn(user, { session: false });
-  } catch (e) {
-    return next(boomedError);
-  }
 
   if (err || !user) {
-    return next(boomedError);
+    Boom.boomify(error, { statusCode: 401, stack: error.stack});
+    return next(error);
   }
 
   req.user = user;
