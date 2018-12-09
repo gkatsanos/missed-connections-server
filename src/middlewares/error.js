@@ -18,6 +18,7 @@ module.exports = {
   converter: (err, req, res, next) => {
     if (env !== 'development') {
       delete err.stack;
+      delete err.output.payload.stack;
     }
     if (err.isBoom) {
       return module.exports.responder(err, req, res);
