@@ -1,6 +1,7 @@
 const express = require('express');
 const controller = require('../controllers/message.controller');
 const { authorize } = require('../middlewares/auth');
+const validate = require('../validations/message.validation');
 
 const router = express.Router();
 
@@ -28,7 +29,7 @@ router
  * @apiError (Unauthorized 401)  Unauthorized  Only authenticated users can access the data
  * @apiError (Forbidden 403)     Forbidden     Only admins can access the data
  */
-  .get(authorize(), controller.list);
+  .get(validate.message, authorize(), controller.list);
 
 /**
  * @api {post} /users Create User

@@ -1,13 +1,12 @@
-const { validationResult, check } = require('express-validator/check');
+const { validationResult, header } = require('express-validator/check');
 
-exports.auth = [
-  check('email').isEmail().withMessage('must be a valid email'),
-  check('password').isLength({ min: 4 }).withMessage('passwd 4 chars long!'),
+exports.message = [
+  header('Authorization').exists().withMessage('Authorization header missing, please login'),
   (req, res, next) => {
     const errorFormatter = ({ location, msg, param, value, nestedErrors }) => {
       // Build your resulting errors however you want! String, object, whatever - it works!
       return {
-        "statusCode": 422,
+        "statusCode": 401,
         "field":param,
         "message": msg
       };

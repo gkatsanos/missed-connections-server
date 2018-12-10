@@ -1,4 +1,4 @@
-const boom = require('boom');
+const Boom = require('boom');
 const { env } = require('../config/vars');
 
 module.exports = {
@@ -8,7 +8,8 @@ module.exports = {
    */
   responder: (err, req, res, next) => {
     res.status(err.output.payload.statusCode);
-    res.json(err.output.payload);
+    const formattedResponse = { 'errors': err.data || [err.output.payload]};
+    res.json(formattedResponse);
   },
 
   /**
@@ -26,11 +27,11 @@ module.exports = {
       return module.exports.responder(err, req, res);
     }
     if (err.name === 'MongoError' && err.code === 11000) {
-      const boomedError = boom.conflict('This email already exists');
+      const boomedError = Boom.conflict('This email already exists');
       boomedError.output.payload.stack = err ? err.stack : undefined;
       return module.exports.responder(boomedError, req, res);
     }
-    const boomedError = boom.boomify(err, { statusCode: 422 });
+    const boomedError = new Boom('Validation failed', { statusCode: 422, data: err });
     return module.exports.responder(boomedError, req, res);
   },
 
@@ -39,7 +40,7 @@ module.exports = {
    * @public
    */
   notFound: (req, res) => {
-    const err = boom.notFound('Not Found');
+    const err = Boom.notFound('Not Found');
     return module.exports.responder(err, req, res);
   },
 };
