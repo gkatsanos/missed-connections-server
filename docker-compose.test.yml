@@ -1,6 +1,6 @@
 version: "3"
 services:
-  sut:
+  server:
     build: .
     command: yarn test
     environment:
