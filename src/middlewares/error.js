@@ -8,7 +8,7 @@ module.exports = {
    */
   responder: (err, req, res, next) => {
     res.status(err.output.payload.statusCode);
-    const formattedResponse = { 'errors': err.data || [err.output.payload]};
+    const formattedResponse = { errors: err.data || [err.output.payload]};
     res.json(formattedResponse);
   },
 

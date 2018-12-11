@@ -1,6 +1,4 @@
 const mongoose = require('mongoose');
-const httpStatus = require('http-status');
-const { omitBy, isNil } = require('lodash');
 const bcrypt = require('bcryptjs');
 const moment = require('moment-timezone');
 const jwt = require('jwt-simple');
@@ -117,13 +115,10 @@ userSchema.statics = {
   async findAndGenerateToken(options) {
     const { email, password, refreshObject } = options;
     const user = await this.findOne({ email }).exec();
-    const err = {
-      status: httpStatus.UNAUTHORIZED,
-      isPublic: true,
-    };
     if (user && await user.passwordMatches(password)) {
       return { user, accessToken: user.token() };
-    } else if (refreshObject && refreshObject.userEmail === email) {
+    }
+    if (refreshObject && refreshObject.userEmail === email) {
       return { user, accessToken: user.token() };
     }
     throw boom.unauthorized('Incorrect email or password');

@@ -5,7 +5,7 @@ const handleJWT = (req, res, next) => async (err, user, info) => {
   const error = err || info;
 
   if (err || !user) {
-    Boom.boomify(error, { statusCode: 401, stack: error.stack});
+    Boom.boomify(error, { statusCode: 401, stack: error.stack });
     return next(error);
   }
 

@@ -2,7 +2,6 @@ const httpStatus = require('http-status');
 const moment = require('moment-timezone');
 const nodemailer = require('nodemailer');
 const uuidv1 = require('uuid/v1');
-const { validationResult } = require('express-validator/check');
 const User = require('../models/user.model');
 const RefreshToken = require('../models/refreshToken.model');
 const { jwtExpirationInterval } = require('../config/vars');
