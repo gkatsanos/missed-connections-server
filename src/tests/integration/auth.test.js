@@ -50,9 +50,6 @@ describe('Authentication API', () => {
         .expect(httpStatus.CREATED)
         .then((res) => {
           delete user.password;
-          // expect(res.body.token).to.have.a.property('accessToken');
-          // expect(res.body.token).to.have.a.property('refreshToken');
-          // expect(res.body.token).to.have.a.property('expiresIn');
           expect(res.body.user).to.include(user);
         });
     });
@@ -63,7 +60,7 @@ describe('Authentication API', () => {
         .send(persistentUser)
         .expect(httpStatus.CONFLICT)
         .then((res) => {
-          expect(res.body.message).to.include('This email already exists');
+          expect(res.body.errors[0].statusCode).to.equal(409);
         });
     });
 
@@ -73,7 +70,8 @@ describe('Authentication API', () => {
         .send({})
         .expect(httpStatus.UNPROCESSABLE_ENTITY)
         .then((res) => {
-          expect(res.body.message).to.include('Validation failed');
+          expect(res.body.errors[0].statusCode).to.equal(422);
+          expect(res.body.errors[1].statusCode).to.equal(422);
         });
     });
   });
@@ -99,7 +97,8 @@ describe('Authentication API', () => {
         .send({})
         .expect(httpStatus.UNPROCESSABLE_ENTITY)
         .then((res) => {
-          expect(res.body.message).to.include('Validation failed');
+          expect(res.body.errors[0].statusCode).to.equal(422);
+          expect(res.body.errors[1].statusCode).to.equal(422);
         });
     });
 
@@ -110,17 +109,17 @@ describe('Authentication API', () => {
         .send(user)
         .expect(httpStatus.UNPROCESSABLE_ENTITY)
         .then((res) => {
-          expect(res.body.message).to.include('Validation failed');
+          expect(res.body.errors[0].statusCode).to.equal(422);
         });
     });
 
-    it('should report error when email and password don\'t match', () => {
+    it('should report error when email and password dont match', () => {
       return request(app)
         .post('/auth/login')
         .send(user)
         .expect(httpStatus.UNAUTHORIZED)
         .then((res) => {
-          expect(res.body.message).to.be.equal('Incorrect email or password');
+          expect(res.body.errors[0].statusCode).to.equal(401);
         });
     });
   });
