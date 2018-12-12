@@ -5,6 +5,7 @@ const uuidv1 = require('uuid/v1');
 const User = require('../models/user.model');
 const RefreshToken = require('../models/refreshToken.model');
 const { jwtExpirationInterval } = require('../config/vars');
+const { env } = require('../config/vars');
 
 /**
  * Returns a formated object with tokens
@@ -14,14 +15,16 @@ function generateTokenResponse(user, accessToken) {
   const tokenType = 'Bearer';
   const refreshToken = RefreshToken.generate(user).token;
   const expiresIn = moment().add(jwtExpirationInterval, 'minutes');
-  return { tokenType, accessToken, refreshToken, expiresIn };
+  return {
+    tokenType, accessToken, refreshToken, expiresIn,
+  };
 }
 
 /**
  * Sends validation email
  * @private
  */
-function sendValidationEmail(activationId) {
+function sendValidationEmail(activationId, userEmail) {
   nodemailer.createTestAccount(() => {
     // create reusable transporter object using the default SMTP transport
     const transporter = nodemailer.createTransport({
@@ -29,16 +32,17 @@ function sendValidationEmail(activationId) {
       port: 587,
       auth: {
         user: 'mqv23wg64gvpwgmf@ethereal.email',
-        pass: 'vzRdPkTdwNFxm6wBG1'
-      }
+        pass: 'vzRdPkTdwNFxm6wBG1',
+      },
     });
 
+    const receiverMail = env === 'development' ? 'crsej42ei5wvs3m2@ethereal.email' : userEmail;
     // setup email data with unicode symbols
     const mailOptions = {
-      from: '"Fred Foo 👻" <foo@blurdybloop.com>', // sender address
-      to: 'crsej42ei5wvs3m2@ethereal.email', // list of receivers
+      from: '"Boilerplate Email Validation Service" <noreply@boilerplate.com>', // sender address
+      to: receiverMail, // list of receivers
       subject: 'Validation', // Subject line
-      html: `<a href="${process.env.CLIENT_URI}auth/${activationId}">click this</a>`, // html body
+      html: `<a href="${process.env.BASE_URI}auth/${activationId}">click this</a>`, // html body
     };
 
     // send mail with defined transport object
@@ -64,13 +68,11 @@ function sendValidationEmail(activationId) {
 exports.register = async (req, res, next) => {
   try {
     const user = new User(req.body);
-    const token = generateTokenResponse(user, user.token());
     const userTransformed = user.transform();
-    user.tokens.push({ kind: 'jwt', token });
     user.activationId = uuidv1();
+    sendValidationEmail(user.activationId, user.email);
     await user.save();
     res.status(httpStatus.CREATED);
-    sendValidationEmail(user.activationId);
     return res.json({ user: userTransformed });
   } catch (err) {
     return next(err, req, res, next);
@@ -113,7 +115,7 @@ exports.refresh = async (req, res, next) => {
 
 
 /**
- * Sets user to activen and log them in if valid token is provided
+ * Email verification of account, flags user as active and sends them a token
  * @public
  */
 exports.verify = async (req, res, next) => {
@@ -121,6 +123,8 @@ exports.verify = async (req, res, next) => {
     const user = await User.findOneAndUpdate({
       activationId: req.params.activationId,
     }, { active: true });
+    const token = generateTokenResponse(user, user.token());
+    user.tokens.push({ kind: 'jwt', token });
     if (user) {
       const userTransformed = user.transform();
       return res.json(

@@ -41,8 +41,6 @@ const userSchema = new mongoose.Schema({
     default: false,
   },
   gender: String,
-  picture: String,
-  location: String,
   tokens: Array,
   activationId: String,
 }, {
@@ -115,6 +113,9 @@ userSchema.statics = {
   async findAndGenerateToken(options) {
     const { email, password, refreshObject } = options;
     const user = await this.findOne({ email }).exec();
+    if (!user.active) {
+      throw boom.unauthorized('Inactive account');
+    }
     if (user && await user.passwordMatches(password)) {
       return { user, accessToken: user.token() };
     }

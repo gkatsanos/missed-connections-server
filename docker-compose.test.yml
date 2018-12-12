@@ -8,7 +8,7 @@ services:
       - MONGO_URI
       - JWT_SECRET
       - JWT_EXPIRATION_MINUTES
-      - CLIENT_URI
+      - BASE_URI
       - MONGO_URI_TESTS
     depends_on:
       - mongodb
