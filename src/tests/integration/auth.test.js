@@ -1,7 +1,6 @@
 const request = require('supertest');
 const httpStatus = require('http-status');
 const { expect } = require('chai');
-const sinon = require('sinon');
 const uuidv1 = require('uuid/v1');
 const app = require('../../index');
 const User = require('../../models/user.model');
