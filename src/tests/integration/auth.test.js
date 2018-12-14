@@ -2,12 +2,10 @@ const request = require('supertest');
 const httpStatus = require('http-status');
 const { expect } = require('chai');
 const sinon = require('sinon');
+const uuidv1 = require('uuid/v1');
 const app = require('../../index');
 const User = require('../../models/user.model');
 const RefreshToken = require('../../models/refreshToken.model');
-const uuidv1 = require('uuid/v1');
-
-const sandbox = sinon.createSandbox();
 
 describe('Authentication', () => {
   let user;
@@ -46,7 +44,9 @@ describe('Authentication', () => {
     await RefreshToken.remove({});
   });
 
-  afterEach(() => sandbox.restore());
+  after(async () => {
+    await User.remove({});
+  });
 
   describe('POST /auth/register', () => {
     it('should register a new user when request is ok', () => request(app)
