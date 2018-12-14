@@ -113,13 +113,17 @@ userSchema.statics = {
   async findAndGenerateToken(options) {
     const { email, password, refreshObject } = options;
     const user = await this.findOne({ email }).exec();
-    if (!user.active) {
+    if (!user) {
+      // user doesn't exist in our DB but we don't want to give that information
+      throw boom.unauthorized('Incorrect email or password');
+    }
+    if (user && !user.active) {
       throw boom.unauthorized('Inactive account');
     }
-    if (user && await user.passwordMatches(password)) {
+    if (refreshObject && refreshObject.userEmail === email) {
       return { user, accessToken: user.token() };
     }
-    if (refreshObject && refreshObject.userEmail === email) {
+    if (user && await user.passwordMatches(password)) {
       return { user, accessToken: user.token() };
     }
     throw boom.unauthorized('Incorrect email or password');
