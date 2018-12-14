@@ -4,12 +4,7 @@ services:
     build: .
     command: yarn test
     environment:
-      - PORT
-      - MONGO_URI
-      - JWT_SECRET
-      - JWT_EXPIRATION_MINUTES
-      - BASE_URI
-      - MONGO_URI_TESTS
+      - MONGO_URI_TESTS=mongodb://mongodb:27017/isawyou-test
     depends_on:
       - mongodb
 
