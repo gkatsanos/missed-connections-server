@@ -16,7 +16,5 @@ module.exports = {
       ? process.env.MONGO_URI_TESTS
       : process.env.MONGO_URI,
   },
-  facebookSecret: process.env.FACEBOOK_CLIENT_SECRET,
-  facebookId: process.env.FACEBOOK_CLIENT_ID,
   logs: process.env.NODE_ENV === 'production' ? 'combined' : 'dev',
 };
