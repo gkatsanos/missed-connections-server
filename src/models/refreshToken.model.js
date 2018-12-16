@@ -7,7 +7,7 @@ const moment = require('moment-timezone');
  * @private
  */
 const refreshTokenSchema = new mongoose.Schema({
-  token: {
+  refreshToken: {
     type: String,
     required: true,
     index: true,
@@ -17,7 +17,7 @@ const refreshTokenSchema = new mongoose.Schema({
     ref: 'User',
     required: true,
   },
-  userEmail: {
+  email: {
     type: 'String',
     ref: 'User',
     required: true,
@@ -35,14 +35,13 @@ refreshTokenSchema.statics = {
    */
   generate(user) {
     const userId = user._id;
-    const userEmail = user.email;
-    const token = `${userId}.${crypto.randomBytes(40).toString('hex')}`;
+    const { email } = user;
+    const refreshToken = `${userId}.${crypto.randomBytes(40).toString('hex')}`;
     const expires = moment().add(30, 'days').toDate();
-    const tokenObject = new RefreshToken({ token, userId, userEmail, expires });
+    const tokenObject = new RefreshToken({ refreshToken, userId, email, expires });
     tokenObject.save();
     return tokenObject;
   },
-
 };
 
 /**

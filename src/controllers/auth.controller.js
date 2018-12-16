@@ -1,6 +1,7 @@
 const httpStatus = require('http-status');
 const moment = require('moment-timezone');
 const nodemailer = require('nodemailer');
+const Boom = require('boom');
 const uuidv1 = require('uuid/v1');
 const User = require('../models/user.model');
 const RefreshToken = require('../models/refreshToken.model');
@@ -13,7 +14,7 @@ const { env } = require('../config/vars');
  */
 function generateTokenResponse(user, accessToken) {
   const tokenType = 'Bearer';
-  const refreshToken = RefreshToken.generate(user).token;
+  const { refreshToken } = RefreshToken.generate(user);
   const expiresIn = moment().add(jwtExpirationInterval, 'minutes');
   return {
     tokenType, accessToken, refreshToken, expiresIn,
@@ -101,15 +102,15 @@ exports.login = async (req, res, next) => {
 exports.refresh = async (req, res, next) => {
   try {
     const { email, refreshToken } = req.body;
-    const refreshObject = await RefreshToken.findOneAndRemove({
-      userEmail: email,
-      token: refreshToken,
+    const refreshObject = await RefreshToken.findOneAndDelete({
+      email,
+      refreshToken,
     });
     const { user, accessToken } = await User.findAndGenerateToken({ email, refreshObject });
     const response = generateTokenResponse(user, accessToken);
     return res.json(response);
-  } catch (error) {
-    return next(error);
+  } catch (err) {
+    return next(err, req, res, next);
   }
 };
 
@@ -135,7 +136,7 @@ exports.verify = async (req, res, next) => {
       );
     }
     return next();
-  } catch (error) {
-    return next(error);
+  } catch (err) {
+    return next(err);
   }
 };

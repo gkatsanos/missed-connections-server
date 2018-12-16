@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const moment = require('moment-timezone');
 const jwt = require('jwt-simple');
-const boom = require('boom');
+const Boom = require('boom');
 const { converter } = require('../middlewares/error');
 const { env, jwtSecret, jwtExpirationInterval } = require('../config/vars');
 
@@ -115,10 +115,10 @@ userSchema.statics = {
     const user = await this.findOne({ email }).exec();
     if (!user) {
       // user doesn't exist in our DB but we don't want to give that information
-      throw boom.unauthorized('Incorrect email or password');
+      throw Boom.unauthorized('Incorrect email or password');
     }
     if (user && !user.active) {
-      throw boom.unauthorized('Inactive account');
+      throw Boom.unauthorized('Inactive account');
     }
     if (refreshObject && refreshObject.userEmail === email) {
       return { user, accessToken: user.token() };
@@ -126,7 +126,7 @@ userSchema.statics = {
     if (user && await user.passwordMatches(password)) {
       return { user, accessToken: user.token() };
     }
-    throw boom.unauthorized('Incorrect email or password');
+    throw Boom.unauthorized('Incorrect email or password');
   },
 
 };
