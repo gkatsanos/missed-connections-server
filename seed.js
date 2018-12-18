@@ -2,8 +2,6 @@ const MongoClient = require('mongodb').MongoClient;
 const faker = require('faker');
 const { mongo } = require('./src/config/vars');
 
-// TODO find a way to bind id and name or just stick with ID
-
 const prepareData = () => {
   const seedData = [];
   for (let i = 0; i <= 10; i += 1) {
@@ -15,13 +13,8 @@ const prepareData = () => {
           parseFloat(faker.address.latitude()),
         ],
       },
-      category: {
-        id: faker.random.number({ min: 1, max: 10 }),
-      },
-      age: faker.random.number({ min: 10, max: 100 }),
-      yourSex: faker.random.number({ min: 1, max: 3 }),
-      mySex: faker.random.number({ min: 1, max: 3 }),
       username: faker.internet.userName(),
+      title: faker.lorem.words(5),
       body: faker.lorem.words(10),
     });
     console.clear();
@@ -35,13 +28,14 @@ const insertDocuments = (db, callback) => {
   callback();
 };
 
-MongoClient.connect(mongo.uri, (err, db) => {
+MongoClient.connect(mongo.uri, { useNewUrlParser: true }, (err, client) => {
+  const db = client.db('isawyou');
   db.collection('messages').deleteMany({}, () => {
-    db.close();
+    client.close();
   });
   db.collection('messages').createIndex({ location: '2dsphere' });
   insertDocuments(db, () => {
-    db.close();
+    client.close();
   });
   console.log('Seeding complete.');
 });

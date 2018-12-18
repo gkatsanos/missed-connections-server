@@ -10,8 +10,6 @@ describe('Authentication', () => {
   let user;
   let persistentUser;
   const activationId = uuidv1();
-  // @TODO implement test to check what happens when token expires
-  // let refreshToken;
 
   beforeEach(async () => {
     persistentUser = {
@@ -29,14 +27,6 @@ describe('Authentication', () => {
       lastName: 'User',
       activationId,
     };
-
-    // @TODO implement test to check what happens when logging with expired token
-    // refreshToken = {
-    //   token: '',
-    //   userId: '',
-    //   userEmail: user.email,
-    //   expires: new Date(),
-    // };
 
     await User.remove({});
     await User.create(persistentUser);
@@ -131,5 +121,14 @@ describe('Authentication', () => {
       .then(() => request(app).post(`/auth/${activationId}`).send(user)
         .then(() => request(app).post('/auth/login').send(user)
           .then(() => expect(httpStatus.OK)))));
+  });
+
+  describe('POST /auth/refresh-token', () => {
+    it('gets back a new accessToken if refreshToken has not expired', () => request(app).post('/auth/login').send(persistentUser)
+      .then(res => request(app).post('/auth/refresh-token').send({ email: persistentUser.email, refreshToken: res.body.token.refreshToken })
+        .then((res) => {
+          expect(httpStatus.OK);
+          expect(res.body).to.have.a.property('accessToken');
+        })));
   });
 });

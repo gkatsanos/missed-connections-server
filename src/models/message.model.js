@@ -6,36 +6,21 @@ const mongoosePaginate = require('mongoose-paginate');
  * @private
  */
 const messageSchema = new mongoose.Schema({
-  location: {
-    type: String,
-    coordinates: [Number],
-  },
-  category: {
-    id: {
-      type: Number,
-    },
-  },
   username: {
     type: String,
     maxlength: 128,
   },
-  age: {
-    type: Number,
-    max: 120,
-    min: 10,
+  location: {
+    type: String,
+    coordinates: [Number],
   },
-  yourSex: {
-    type: Number,
-    min: 1,
-    max: 3,
-  },
-  mySex: {
-    type: Number,
-    min: 1,
-    max: 3,
+  title: {
+    type: String,
+    required: true,
   },
   body: {
     type: String,
+    required: true,
   },
 });
 

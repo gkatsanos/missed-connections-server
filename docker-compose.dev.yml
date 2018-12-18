@@ -1,6 +1,7 @@
 version: "3"
 services:
   server:
-    command: yarn dev
+    command: >
+      sh -c "yarn seed && yarn dev"
     ports:
       - "9229:9229"

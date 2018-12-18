@@ -106,9 +106,13 @@ exports.refresh = async (req, res, next) => {
       email,
       refreshToken,
     });
-    const { user, accessToken } = await User.findAndGenerateToken({ email, refreshObject });
-    const response = generateTokenResponse(user, accessToken);
-    return res.json(response);
+    if (refreshObject) {
+      const { user, accessToken } = await User.findAndGenerateToken({ email, refreshObject });
+      const response = generateTokenResponse(user, accessToken);
+      return res.json(response);
+    }
+    const err = Boom.unauthorized('refreshToken expired');
+    return next(err, req, res, next);
   } catch (err) {
     return next(err, req, res, next);
   }

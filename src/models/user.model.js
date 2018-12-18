@@ -120,7 +120,7 @@ userSchema.statics = {
     if (user && !user.active) {
       throw Boom.unauthorized('Inactive account');
     }
-    if (refreshObject && refreshObject.userEmail === email) {
+    if (refreshObject && refreshObject.email === email) {
       return { user, accessToken: user.token() };
     }
     if (user && await user.passwordMatches(password)) {

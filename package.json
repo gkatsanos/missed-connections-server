@@ -11,7 +11,7 @@
   },
   "scripts": {
     "start": "NODE_ENV=production node ./src/index.js",
-    "dev": "LOG_LEVEL=debug nodemon --inspect=0.0.0.0 ./src/index.js",
+    "dev": "LOG_LEVEL=debug DEBUG=express:* nodemon --inspect=0.0.0.0 ./src/index.js",
     "test": "NODE_ENV=test nyc --reporter=html --reporter=text mocha --timeout 20000 --recursive src/tests",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "postcoverage": "opn coverage/lcov-report/index.html",
