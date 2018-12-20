@@ -16,7 +16,6 @@
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "postcoverage": "opn coverage/lcov-report/index.html",
     "postpublish": "git push --tags",
-    "deploy": "sh ./deploy.sh",
     "docs": "apidoc -i src -o docs",
     "postdocs": "opn docs/index.html",
     "docker:prod": "docker-compose -f docker-compose.yml -f docker-compose.prod.yml up",
