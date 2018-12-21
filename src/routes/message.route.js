@@ -59,6 +59,6 @@ router
 
 router
   .route('/list/page/:pageNum')
-  .get(authorize(), controller.list);
+  .get(validate.message, authorize(), controller.list);
 
 module.exports = router;

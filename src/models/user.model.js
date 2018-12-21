@@ -41,7 +41,6 @@ const userSchema = new mongoose.Schema({
     default: false,
   },
   gender: String,
-  tokens: Array,
   activationId: String,
 }, {
   timestamps: true,
