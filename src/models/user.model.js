@@ -46,14 +46,6 @@ const userSchema = new mongoose.Schema({
   timestamps: true,
 });
 
-/**
- * Add your
- * - pre-save hooks
- * - validations
- * - virtuals
- */
-// @TODO change this to real validation
-// https://stackoverflow.com/questions/13580589/mongoose-unique-validation-error-type
 userSchema.pre('save', async function save(next) {
   try {
     if (!this.isModified('password')) return next();

@@ -31,9 +31,6 @@ const messageSchema = new mongoose.Schema({
   },
 });
 
-/**
- * Statics
- */
 messageSchema.statics = {
   list() {
     return this.find({})
@@ -41,12 +38,6 @@ messageSchema.statics = {
   },
 };
 
-/**
- * Plugins
- */
 messageSchema.plugin(mongoosePaginate);
 
-/**
- * @typedef Message
- */
 module.exports = mongoose.model('Message', messageSchema);
