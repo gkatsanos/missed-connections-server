@@ -125,7 +125,9 @@ describe('Authentication', () => {
 
   describe('POST /auth/refresh-token', () => {
     it('gets back a new accessToken if refreshToken has not expired', () => request(app).post('/auth/login').send(persistentUser)
-      .then(res => request(app).post('/auth/refresh-token').send({ email: persistentUser.email, refreshToken: res.body.token.refreshToken })
+      .then(res => request(app)
+        .post('/auth/refresh-token')
+        .send({ email: persistentUser.email, refreshToken: res.body.token.refreshToken })
         .then((res) => {
           expect(httpStatus.OK);
           expect(res.body).to.have.a.property('accessToken');

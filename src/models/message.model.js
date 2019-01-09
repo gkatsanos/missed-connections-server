@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const mongoosePaginate = require('mongoose-paginate');
+const mongooseHidden = require('mongoose-hidden')();
 
 /**
  * Message Schema
@@ -39,5 +40,6 @@ messageSchema.statics = {
 };
 
 messageSchema.plugin(mongoosePaginate);
+messageSchema.plugin(mongooseHidden);
 
 module.exports = mongoose.model('Message', messageSchema);
