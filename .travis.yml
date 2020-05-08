@@ -12,10 +12,10 @@ env:
   - NODE_ENV=test
 script: yarn test
 before_install:
-  - curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version 1.12.3
-  - export PATH="$HOME/.yarn/bin:$PATH"
+- curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version 1.12.3
+- export PATH="$HOME/.yarn/bin:$PATH"
 deploy:
   provider: heroku
   api_key:
-    secure: WGveC2IEGdboqPf8Kgxwcp4Sst9oAHtlaF6y8WVmZx3Pkec+n5R+Ih7JShxl1Zfl4TIcZXkuzWee00hR9CGfns0BuNli0auRFrH68BdxjrJ5gDeArNbqDNAqdSj0zm/mX2i+miOcNpiSpcdTFPrUHKZenAs6FAYd+L/3yupwHwYCoOTd4avrYg8G+jVQ9VBKDz59hE/3CiSe3Ub5J+n+hBICm8pTU9TY9C1LcNWkOUGcKnubjH0Z+cmdK5z/5I8u17i3CwSrF+gZajRSpybCT8qWEGlL/Xak3hGCUK7vIRxQpQpA6J0DmO9KBWGjNCBZtg8Z3PFysiNl7qCGc+8PTHVESD+ElTXDTJeVSkEIwD65H1o+QfgqaCrc65IlSZyVgXAL5ChgDQghmn6Nn/sli+g0HXk7LZfy49hmcn4Zr/CDCB/ErVhRNNEambwzvM9KJUQjXd2mQt5n/eUFy662wBiMiOXju7IeR7EVZv/fZAibZjnX7An/Q0jTDoCIov725Lq6z0e5u65XBtPeCXoBdY5J+TXisUkbrXorxX63E6uxwJVu2xD0OxwwDmlRdCP4wjTjOzx8H2NGJ+L2rWrmADnylRWDj1LDdpnGOE1SlNSB+NaDtUSlmsxpOmnG38q6Y/VfIxaG0C4jSIKwkIhIsZcFET3AEaapEbaYPzDXpS8=
+    secure: oMO0y5fkOLKrybRZ0HLm4UzmCaSrL8R/5i945AkVGvnTP5W2JQl+OOBgZ14r9bU2WBmg/rz0/ygeBgo1etAnBr6oWR5aQne1DywRfEBgRIHM9MLV94Z4FveqatFMwjG/C++4dSBhpNYGmzXjVQvKHysfTZsSB2wHHmf3r9iYIH6ec0edfux93fZFimtq0uNN2IYwQahnKBJAYy/N3zSQ8WTMe3htOV0cOLMTNfTKegauHpjDPGagHiai+Wpy7NI4DKY7d9lYiEzZLYuypqZfgGVtzTEfWM2tr0+qRo0LhfluTD9s8bkrTiMJmYw7GqTvOY3F86mER3rtqEBeSNLFNiiKkgALquGwqq/1XFfgujmCbxJMRsF+HpGJOOvE5yFV2LR+YG19kUVtK8/KWWmhYNdd31NcgN2w4cOJtMfPL8KxnJuzPOzBCXQHzjaJVxl2er3VPALiHf2UUJYAjY7hPhG6K/724ardC+RXjQuP23aBSXKHV4wUYCb+mF8g/PL7fuR/jb9bfeoVSztxV4GOmnj6+b+S9owZFrPsbWGCG/CUpF+UdgcAVhj/fkfJOpn1MYefgOJdyx+friguY1Y8/asaBKF8r+oOHSepR1U1lH7jXcNmV//obXbUXugnlPN9QvHj96HKjab+XOZtm+uxmhZn1oaeo991XyzdPL8A7IU=
 after_success: yarn coverage
