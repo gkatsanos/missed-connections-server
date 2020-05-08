@@ -25,7 +25,7 @@
     "docker:test:debug": "docker-compose -f docker-compose.yml -f docker-compose.test-debug.yml up --abort-on-container-exit",
     "seed": "node ./seed.js",
     "snyk-protect": "snyk protect",
-    "prepublish": "npm run snyk-protect"
+    "prepublish": "yarn run snyk-protect"
   },
   "repository": {
     "type": "git",
@@ -85,7 +85,7 @@
     "passport-jwt": "4.0.0",
     "pm2": "^2.4.6",
     "uuid": "^3.1.0",
-    "snyk": "^1.189.0"
+    "snyk": "^1.319.2"
   },
   "devDependencies": {
     "apidoc": "^0.17.5",
