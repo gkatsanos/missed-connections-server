@@ -92,7 +92,7 @@
     "eslint": "5.16.0",
     "eslint-config-airbnb-base": "13.1.0",
     "eslint-plugin-import": "2.20.2",
-    "mocha": "5.2.0",
+    "mocha": "7.1.2",
     "nodemon": "2.0.3",
     "nyc": "11.9.0",
     "opn-cli": "5.0.0",
