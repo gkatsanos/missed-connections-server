@@ -7,7 +7,7 @@
   "private": false,
   "engines": {
     "node": ">=10.6.0",
-    "yarn": "1.12.3"
+    "yarn": ">=1.12.3"
   },
   "scripts": {
     "start": "NODE_ENV=production node ./src/index.js",
