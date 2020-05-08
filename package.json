@@ -96,7 +96,7 @@
     "nodemon": "2.0.3",
     "nyc": "11.9.0",
     "opn-cli": "5.0.0",
-    "sinon": "7.1.1",
+    "sinon": "9.0.2",
     "sinon-chai": "3.5.0",
     "supertest": "3.4.2"
   },
