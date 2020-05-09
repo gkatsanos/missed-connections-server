@@ -11,9 +11,6 @@ env:
   global:
   - NODE_ENV=test
 script: yarn test
-before_install:
-- curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version 1.12.3
-- export PATH="$HOME/.yarn/bin:$PATH"
 deploy:
   provider: heroku
   app: missed-connections-server
