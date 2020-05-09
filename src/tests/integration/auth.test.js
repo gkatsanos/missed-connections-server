@@ -1,7 +1,7 @@
 const request = require('supertest');
 const httpStatus = require('http-status');
 const { expect } = require('chai');
-const uuidv1 = require('uuid/v1');
+const { v4: uuidv4 } = require('uuid');
 const app = require('../../index');
 const User = require('../../models/user.model');
 const RefreshToken = require('../../models/refreshToken.model');
@@ -9,7 +9,7 @@ const RefreshToken = require('../../models/refreshToken.model');
 describe('Authentication', () => {
   let user;
   let persistentUser;
-  const activationId = uuidv1();
+  const activationId = uuidv4();
 
   beforeEach(async () => {
     persistentUser = {

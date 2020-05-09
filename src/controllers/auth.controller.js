@@ -2,7 +2,7 @@ const httpStatus = require('http-status');
 const moment = require('moment-timezone');
 const nodemailer = require('nodemailer');
 const Boom = require('boom');
-const uuidv1 = require('uuid/v1');
+const { v4: uuidv4 } = require('uuid');
 const User = require('../models/user.model');
 const RefreshToken = require('../models/refreshToken.model');
 const { jwtExpirationInterval } = require('../config/vars');
@@ -70,7 +70,7 @@ exports.register = async (req, res, next) => {
   try {
     const user = new User(req.body);
     const userTransformed = user.transform();
-    user.activationId = uuidv1();
+    user.activationId = uuidv4();
     sendValidationEmail(user.activationId, user.email);
     await user.save();
     res.status(httpStatus.CREATED);
