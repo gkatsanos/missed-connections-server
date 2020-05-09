@@ -13,6 +13,12 @@ services:
       - "3000:3000"
     depends_on:
       - mongodb
+  client:
+    image: gkatsanos/client
+    build: .
+    volumes:
+      - .:/app
+      - /app/node_modules/
 
   mongodb:
     image: mongo
