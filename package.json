@@ -27,7 +27,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:gkatsanos/isawyou.git"
+    "url": "git@github.com:gkatsanos/missed-connections-server.git"
   },
   "keywords": [
     "express",

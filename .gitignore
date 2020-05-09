@@ -48,6 +48,3 @@ jspm_packages
 .node_repl_history
 
 /server/docs/*
-
-# We use yarn
-package-lock.json
