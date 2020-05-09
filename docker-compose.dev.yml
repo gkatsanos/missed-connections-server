@@ -5,3 +5,7 @@ services:
       sh -c "yarn seed && yarn dev"
     ports:
       - "9229:9229"
+  client:
+    command: yarn dev
+    ports:
+      - "8080:8080"
