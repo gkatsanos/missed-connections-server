@@ -1,8 +1,7 @@
 version: "3"
 services:
   server:
-    build:
-      context: .
+    build: .
     image: gkatsanos/server
     environment:
       - MONGO_URI=mongodb://mongodb:27017/isawyou
@@ -13,12 +12,6 @@ services:
       - "3000:3000"
     depends_on:
       - mongodb
-  client:
-    image: gkatsanos/client
-    build: .
-    volumes:
-      - .:/app
-      - /app/node_modules/
 
   mongodb:
     image: mongo

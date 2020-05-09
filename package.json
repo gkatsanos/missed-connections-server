@@ -1,5 +1,5 @@
 {
-  "name": "missed-connections",
+  "name": "missed-connections-server",
   "version": "2.3.0",
   "description": "The server behind",
   "author": "Georgios Katsanos <george@gplus.gr>",
