@@ -1,6 +1,6 @@
 # The Server
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com) [![Build Status](https://travis-ci.org/gkatsanos/boilerplate-server.svg?branch=master)](https://travis-ci.org/gkatsanos/boilerplate-server)
-[![Coverage Status](https://coveralls.io/repos/github/gkatsanos/boilerplate-server/badge.svg?branch=master)](https://coveralls.io/github/gkatsanos/boilerplate-server?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/gkatsanos/missed-connections-server/badge.svg?branch=master)](https://coveralls.io/github/gkatsanos/missed-connections-server?branch=master)
 
 The Server Part of a Vue/Mongo/Express/Node application.
 
