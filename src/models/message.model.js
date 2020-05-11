@@ -1,6 +1,6 @@
-const mongoose = require('mongoose');
-const mongoosePaginate = require('mongoose-paginate');
-const mongooseHidden = require('mongoose-hidden')();
+const mongoose = require("mongoose");
+const mongoosePaginate = require("mongoose-paginate");
+const mongooseHidden = require("mongoose-hidden")();
 
 /**
  * Message Schema
@@ -14,8 +14,8 @@ const messageSchema = new mongoose.Schema({
   location: {
     type: {
       type: String, // Don't do `{ location: { type: String } }`
-      enum: ['Point'], // 'location.type' must be 'Point'
-      required: true,
+      enum: ["Point"], // 'location.type' must be 'Point'
+      default: "Point",
     },
     coordinates: {
       type: [Number],
@@ -34,12 +34,12 @@ const messageSchema = new mongoose.Schema({
 
 messageSchema.statics = {
   list() {
-    return this.find({})
-      .exec();
+    return this.find({}).exec();
   },
 };
 
+messageSchema.index({ location: "2dsphere" });
 messageSchema.plugin(mongoosePaginate);
 messageSchema.plugin(mongooseHidden);
 
-module.exports = mongoose.model('Message', messageSchema);
+module.exports = mongoose.model("Message", messageSchema);

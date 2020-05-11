@@ -1,13 +1,15 @@
-const MongoClient = require('mongodb').MongoClient;
-const faker = require('faker');
-const { mongo } = require('./src/config/vars');
+const mongoose = require("mongoose");
+const faker = require("faker");
+const { mongo } = require("./src/config/vars");
+const User = require("./src/models/user.model");
+const Message = require("./src/models/message.model");
 
-const prepareData = () => {
+const messagesSeedData = () => {
   const seedData = [];
   for (let i = 0; i <= 10; i += 1) {
     seedData.push({
       location: {
-        type: 'Point',
+        type: "Point",
         coordinates: [
           parseFloat(faker.address.longitude()),
           parseFloat(faker.address.latitude()),
@@ -17,25 +19,26 @@ const prepareData = () => {
       title: faker.lorem.words(5),
       body: faker.lorem.words(10),
     });
-    console.clear();
     console.log(`Created ${i} items`);
   }
   return seedData;
 };
 
-const insertDocuments = (db, callback) => {
-  db.collection('messages').insertMany(prepareData());
-  callback();
+const usersSeedData = {
+  email: "gkatsanos@gmail.com",
+  password: "1234",
+  firstName: "George",
+  lastName: "Katsanos",
+  active: true,
+  gender: "male",
 };
 
-MongoClient.connect(mongo.uri, { useNewUrlParser: true }, (err, client) => {
-  const db = client.db('isawyou');
-  db.collection('messages').deleteMany({}, () => {
-    client.close();
-  });
-  db.collection('messages').createIndex({ location: '2dsphere' });
-  insertDocuments(db, () => {
-    client.close();
-  });
-  console.log('Seeding complete.');
+mongoose.connect(mongo.uri, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
 });
+
+Message.deleteMany({}).then(() => Message.insertMany(messagesSeedData()));
+User.deleteMany({})
+  .then(() => User.create(usersSeedData))
+  .then(() => console.log("seeding done"));
