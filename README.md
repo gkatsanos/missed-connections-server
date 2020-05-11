@@ -1,4 +1,5 @@
 # The Server
+
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com) [![Build Status](https://travis-ci.org/gkatsanos/boilerplate-server.svg?branch=master)](https://travis-ci.org/gkatsanos/boilerplate-server)
 [![Coverage Status](https://coveralls.io/repos/github/gkatsanos/missed-connections-server/badge.svg?branch=master)](https://coveralls.io/github/gkatsanos/missed-connections-server?branch=master)
 
@@ -6,29 +7,29 @@ The Server Part of a Vue/Mongo/Express/Node application.
 
 ## Features
 
- - No transpilers, just vanilla javascript
- - ES2017 latest features like Async/Await
- - CORS enabled
- - Uses [yarn](https://yarnpkg.com)
- - Express + MongoDB ([Mongoose](http://mongoosejs.com/))
- - Consistent coding styles with [editorconfig](http://editorconfig.org)
- - [Docker](https://www.docker.com/) support
- - Load environment variables from .env files with [dotenv](https://github.com/rolodato/dotenv-safe)
- - Gzip compression with [compression](https://github.com/expressjs/compression)
- - Linting with [eslint](http://eslint.org)
- - Tests with [mocha](https://mochajs.org), [chai](http://chaijs.com) and [sinon](http://sinonjs.org)
- - Code coverage with [istanbul](https://istanbul.js.org) and [coveralls](https://coveralls.io)
- - Git hooks with [husky](https://github.com/typicode/husky) 
- - Logging with [morgan](https://github.com/expressjs/morgan)
- - Authentication and Authorization with [passport](http://passportjs.org)
- - API documentation geratorion with [apidoc](http://apidocjs.com)
- - Continuous integration support with [travisCI](https://travis-ci.org)
- - Monitoring with [pm2](https://github.com/Unitech/pm2)
+- No transpilers, just vanilla javascript
+- ES2017 latest features like Async/Await
+- CORS enabled
+- Uses [yarn](https://yarnpkg.com)
+- Express + MongoDB ([Mongoose](http://mongoosejs.com/))
+- Consistent coding styles with [editorconfig](http://editorconfig.org)
+- [Docker](https://www.docker.com/) support
+- Load environment variables from .env files with [dotenv](https://github.com/rolodato/dotenv-safe)
+- Gzip compression with [compression](https://github.com/expressjs/compression)
+- Linting with [eslint](http://eslint.org)
+- Tests with [mocha](https://mochajs.org), [chai](http://chaijs.com) and [sinon](http://sinonjs.org)
+- Code coverage with [istanbul](https://istanbul.js.org) and [coveralls](https://coveralls.io)
+- Git hooks with [husky](https://github.com/typicode/husky)
+- Logging with [morgan](https://github.com/expressjs/morgan)
+- Authentication and Authorization with [passport](http://passportjs.org)
+- API documentation geratorion with [apidoc](http://apidocjs.com)
+- Continuous integration support with [travisCI](https://travis-ci.org)
+- Monitoring with [pm2](https://github.com/Unitech/pm2)
 
 ## Requirements
 
- - [Node v7.6+](https://nodejs.org/en/download/current/) or [Docker](https://www.docker.com/)
- - [Yarn](https://yarnpkg.com/en/docs/install)
+- [Node v7.6+](https://nodejs.org/en/download/current/) or [Docker](https://www.docker.com/)
+- [Yarn](https://yarnpkg.com/en/docs/install)
 
 ## Getting Started
 

@@ -1,7 +1,15 @@
-const { validationResult, body, check, header, checkSchema } = require('express-validator/check');
+const {
+  validationResult,
+  body,
+  check,
+  header,
+  checkSchema,
+} = require("express-validator/check");
 
 exports.authorization = [
-  header('Authorization').exists().withMessage('Authorization header missing, please login'),
+  header("Authorization")
+    .exists()
+    .withMessage("Authorization header missing, please login"),
   (req, res, next) => {
     const errorFormatter = ({ msg, param }) => ({
       statusCode: 401,
@@ -18,12 +26,12 @@ exports.authorization = [
 ];
 
 exports.createMessage = [
-  body('location.coordinates')
+  body("location.coordinates")
     .isArray()
-    .custom(value => value.length === 2)
-    .withMessage('location should be an array with two elements'),
-  check('title').exists().withMessage('title cant be empty'),
-  check('body').exists().withMessage('body cant be empty'),
+    .custom((value) => value.length === 2)
+    .withMessage("location should be an array with two elements"),
+  check("title").exists().withMessage("title cant be empty"),
+  check("body").exists().withMessage("body cant be empty"),
   (req, res, next) => {
     const errorFormatter = ({ msg, param }) => ({
       statusCode: 422,

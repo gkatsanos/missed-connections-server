@@ -1,11 +1,11 @@
-const request = require('supertest');
-const httpStatus = require('http-status');
-const { expect } = require('chai');
-const app = require('../../index');
-const Message = require('../../models/message.model');
-const User = require('../../models/user.model');
+const request = require("supertest");
+const httpStatus = require("http-status");
+const { expect } = require("chai");
+const app = require("../../index");
+const Message = require("../../models/message.model");
+const User = require("../../models/user.model");
 
-describe('Get messages', () => {
+describe("Get messages", () => {
   let persistentUser;
   let persistentMessage;
   let message;
@@ -13,10 +13,10 @@ describe('Get messages', () => {
 
   before(async () => {
     persistentUser = {
-      email: 'persistent@user.com',
-      password: '123456',
-      firstName: 'Persistent',
-      lastName: 'User',
+      email: "persistent@user.com",
+      password: "123456",
+      firstName: "Persistent",
+      lastName: "User",
       active: true,
     };
 
@@ -24,7 +24,7 @@ describe('Get messages', () => {
     await User.create(persistentUser);
 
     await request(app)
-      .post('/auth/login')
+      .post("/auth/login")
       .send(persistentUser)
       .then((res) => {
         validAccessToken = res.body.token.accessToken;
@@ -33,22 +33,22 @@ describe('Get messages', () => {
 
   beforeEach(async () => {
     persistentMessage = {
-      username: 'mitsos',
+      username: "mitsos",
       location: {
-        type: 'Point',
+        type: "Point",
         coordinates: [172.711, 59.2657],
       },
-      title: 'message title here!',
-      body: 'This is the body text of the messsage',
+      title: "message title here!",
+      body: "This is the body text of the messsage",
     };
 
     message = {
       location: {
-        type: 'Point',
+        type: "Point",
         coordinates: [172.711, 59.2657],
       },
-      title: 'message title here!',
-      body: 'This is the body text of the messsage',
+      title: "message title here!",
+      body: "This is the body text of the messsage",
     };
 
     await Message.create(persistentMessage);
@@ -59,34 +59,37 @@ describe('Get messages', () => {
     await User.deleteMany({});
   });
 
-  describe('GET /message/list', () => {
-    it('get a list of messages if Authentication Token is correct', () => request(app)
-      .get('/message/list')
-      .set('Authorization', `Bearer ${validAccessToken}`)
-      .then((res) => {
-        expect(httpStatus.OK);
-        delete res.body.docs[0]._id;
-        delete res.body.docs[0].__v;
-        expect(res.body.docs[0]).to.be.deep.equal(persistentMessage);
-      }));
+  describe("GET /message/list", () => {
+    it("get a list of messages if Authentication Token is correct", () =>
+      request(app)
+        .get("/message/list")
+        .set("Authorization", `Bearer ${validAccessToken}`)
+        .then((res) => {
+          expect(httpStatus.OK);
+          delete res.body.docs[0]._id;
+          delete res.body.docs[0].__v;
+          expect(res.body.docs[0]).to.be.deep.equal(persistentMessage);
+        }));
 
-    it('gets unauthorized if Authentication Token is invalid', () => request(app)
-      .get('/message/list')
-      .set('Authorization', `Bearer ${validAccessToken}123`)
-      .then(() => expect(httpStatus.UNAUTHORIZED)));
+    it("gets unauthorized if Authentication Token is invalid", () =>
+      request(app)
+        .get("/message/list")
+        .set("Authorization", `Bearer ${validAccessToken}123`)
+        .then(() => expect(httpStatus.UNAUTHORIZED)));
   });
 
-  describe('POST /message/create', () => {
-    describe('if Authentication Token is correct', () => {
-      describe('and message object is valid', () => {
-        it('should create a message', () => request(app)
-          .post('/message/create')
-          .set('Authorization', `Bearer ${validAccessToken}`)
-          .send(message)
-          .then((res) => {
-            expect(httpStatus.OK);
-            expect(res.body.message).to.deep.include(message);
-          }));
+  describe("POST /message/create", () => {
+    describe("if Authentication Token is correct", () => {
+      describe("and message object is valid", () => {
+        it("should create a message", () =>
+          request(app)
+            .post("/message/create")
+            .set("Authorization", `Bearer ${validAccessToken}`)
+            .send(message)
+            .then((res) => {
+              expect(httpStatus.OK);
+              expect(res.body.message).to.deep.include(message);
+            }));
       });
     });
   });

@@ -1,20 +1,20 @@
-const express = require('express');
-const morgan = require('morgan');
-const bodyParser = require('body-parser');
-const compress = require('compression');
-const methodOverride = require('method-override');
-const cors = require('cors');
-const helmet = require('helmet');
-const passport = require('passport');
-const routes = require('../routes/index');
-const jwtStrategy = require('./passport');
-const { logs } = require('./vars');
-const error = require('../middlewares/error');
+const express = require("express");
+const morgan = require("morgan");
+const bodyParser = require("body-parser");
+const compress = require("compression");
+const methodOverride = require("method-override");
+const cors = require("cors");
+const helmet = require("helmet");
+const passport = require("passport");
+const routes = require("../routes/index");
+const jwtStrategy = require("./passport");
+const { logs } = require("./vars");
+const error = require("../middlewares/error");
 
 /**
-* Express instance
-* @public
-*/
+ * Express instance
+ * @public
+ */
 const app = express();
 
 // request logging. dev: console | production: file
@@ -38,10 +38,10 @@ app.use(helmet());
 app.use(cors());
 
 app.use(passport.initialize());
-passport.use('jwt', jwtStrategy);
+passport.use("jwt", jwtStrategy);
 
 // mount api v1 routes
-app.use('/', routes);
+app.use("/", routes);
 
 // catch 404 and forward to error handler
 app.use(error.notFound);

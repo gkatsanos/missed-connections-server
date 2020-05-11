@@ -420,10 +420,7 @@
           {
             "group": "Parameter",
             "type": "String",
-            "allowedValues": [
-              "user",
-              "admin"
-            ],
+            "allowedValues": ["user", "admin"],
             "optional": true,
             "field": "role",
             "description": "<p>User's role</p>"
@@ -522,10 +519,7 @@
           {
             "group": "Parameter",
             "type": "String",
-            "allowedValues": [
-              "user",
-              "admin"
-            ],
+            "allowedValues": ["user", "admin"],
             "optional": true,
             "field": "role",
             "description": "<p>User's role</p>"

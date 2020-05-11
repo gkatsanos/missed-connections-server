@@ -1,5 +1,5 @@
-const passport = require('passport');
-const Boom = require('boom');
+const passport = require("passport");
+const Boom = require("boom");
 
 const handleJWT = (req, res, next) => async (err, user, info) => {
   const error = err || info;
@@ -15,8 +15,8 @@ const handleJWT = (req, res, next) => async (err, user, info) => {
 };
 
 exports.authorize = () => (req, res, next) =>
-  passport.authenticate('jwt', { session: false }, handleJWT(req, res, next))(
+  passport.authenticate("jwt", { session: false }, handleJWT(req, res, next))(
     req,
     res,
-    next,
+    next
   );

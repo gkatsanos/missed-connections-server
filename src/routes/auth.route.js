@@ -1,6 +1,6 @@
-const express = require('express');
-const controller = require('../controllers/auth.controller');
-const validate = require('../validations/auth.validation');
+const express = require("express");
+const controller = require("../controllers/auth.controller");
+const validate = require("../validations/auth.validation");
 
 const router = express.Router();
 
@@ -33,9 +33,7 @@ const router = express.Router();
  *
  * @apiError (Bad Request 400)  ValidationError  Some parameters may contain invalid values
  */
-router.route('/register')
-  .post(validate.auth, controller.register);
-
+router.route("/register").post(validate.auth, controller.register);
 
 /**
  * @api {post} auth/login Login
@@ -64,9 +62,7 @@ router.route('/register')
  * @apiError (Bad Request 400)  ValidationError  Some parameters may contain invalid values
  * @apiError (Unauthorized 401)  Unauthorized     Incorrect email or password
  */
-router.route('/login')
-  .post(validate.auth, controller.login);
-
+router.route("/login").post(validate.auth, controller.login);
 
 /**
  * @api {post} auth/refresh-token Refresh Token
@@ -87,26 +83,20 @@ router.route('/login')
  * @apiError (Bad Request 400)  ValidationError  Some parameters may contain invalid values
  * @apiError (Unauthorized 401)  Unauthorized     Incorrect email or refreshToken
  */
-router.route('/refresh-token')
-  .post(controller.refresh);
+router.route("/refresh-token").post(controller.refresh);
 
-router.route('/:activationId')
-  .get(controller.verify);
-
+router.route("/:activationId").get(controller.verify);
 
 /**
  * TODO: POST /auth/reset-password
  */
 
-
 /**
  * TODO: POST /auth/facebook
  */
 
-
 /**
  * TODO: POST /auth/google
  */
-
 
 module.exports = router;
