@@ -97,8 +97,7 @@
     "opn-cli": "5.0.0",
     "sinon": "9.0.2",
     "sinon-chai": "3.5.0",
-    "supertest": "3.4.2",
-    "prettier": "2.0.5"
+    "supertest": "3.4.2"
   },
   "license": "MIT"
 }
