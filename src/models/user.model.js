@@ -1,56 +1,59 @@
-const mongoose = require('mongoose');
-const bcrypt = require('bcryptjs');
-const moment = require('moment-timezone');
-const jwt = require('jwt-simple');
-const Boom = require('boom');
-const { converter } = require('../middlewares/error');
-const { env, jwtSecret, jwtExpirationInterval } = require('../config/vars');
+const mongoose = require("mongoose");
+const bcrypt = require("bcryptjs");
+const moment = require("moment-timezone");
+const jwt = require("jwt-simple");
+const Boom = require("boom");
+const { converter } = require("../middlewares/error");
+const { env, jwtSecret, jwtExpirationInterval } = require("../config/vars");
 
 /**
  * User Schema
  * @private
  */
-const userSchema = new mongoose.Schema({
-  email: {
-    type: String,
-    required: true,
-    unique: true,
-    trim: true,
-    lowercase: true,
+const userSchema = new mongoose.Schema(
+  {
+    email: {
+      type: String,
+      required: true,
+      unique: true,
+      trim: true,
+      lowercase: true,
+    },
+    password: {
+      type: String,
+      required: true,
+      minlength: 4,
+      maxlength: 128,
+    },
+    firstName: {
+      type: String,
+      required: true,
+      maxlength: 128,
+      trim: true,
+    },
+    lastName: {
+      type: String,
+      required: true,
+      maxlength: 128,
+      trim: true,
+    },
+    active: {
+      type: Boolean,
+      default: false,
+    },
+    gender: String,
+    activationId: String,
   },
-  password: {
-    type: String,
-    required: true,
-    minlength: 4,
-    maxlength: 128,
-  },
-  firstName: {
-    type: String,
-    required: true,
-    maxlength: 128,
-    trim: true,
-  },
-  lastName: {
-    type: String,
-    required: true,
-    maxlength: 128,
-    trim: true,
-  },
-  active: {
-    type: Boolean,
-    default: false,
-  },
-  gender: String,
-  activationId: String,
-}, {
-  timestamps: true,
-});
+  {
+    timestamps: true,
+  }
+);
 
-userSchema.pre('save', async function save(next) {
+userSchema.pre("save", async function save(next) {
   try {
-    if (!this.isModified('password')) return next();
+    if (!this.isModified("password")) return next();
 
-    const rounds = env === 'test' ? 1 : 10;
+    const rounds = env === "test" ? 1 : 10;
 
     const hash = await bcrypt.hash(this.password, rounds);
     this.password = hash;
@@ -67,7 +70,7 @@ userSchema.pre('save', async function save(next) {
 userSchema.method({
   transform() {
     const transformed = {};
-    const fields = ['email', 'id', 'firstName', 'lastName', 'createdAt'];
+    const fields = ["email", "id", "firstName", "lastName", "createdAt"];
 
     fields.forEach((field) => {
       transformed[field] = this[field];
@@ -78,7 +81,7 @@ userSchema.method({
 
   token() {
     const payload = {
-      exp: moment().add(jwtExpirationInterval, 'minutes').unix(),
+      exp: moment().add(jwtExpirationInterval, "minutes").unix(),
       iat: moment().unix(),
       sub: this._id,
     };
@@ -94,7 +97,6 @@ userSchema.method({
  * Statics
  */
 userSchema.statics = {
-
   /**
    * Find user by email and tries to generate a JWT token
    *
@@ -106,23 +108,22 @@ userSchema.statics = {
     const user = await this.findOne({ email }).exec();
     if (!user) {
       // user doesn't exist in our DB but we don't want to give that information
-      throw Boom.unauthorized('Incorrect email or password');
+      throw Boom.unauthorized("Incorrect email or password");
     }
     if (user && !user.active) {
-      throw Boom.unauthorized('Inactive account');
+      throw Boom.unauthorized("Inactive account");
     }
     if (refreshObject && refreshObject.email === email) {
       return { user, accessToken: user.token() };
     }
-    if (user && await user.passwordMatches(password)) {
+    if (user && (await user.passwordMatches(password))) {
       return { user, accessToken: user.token() };
     }
-    throw Boom.unauthorized('Incorrect email or password');
+    throw Boom.unauthorized("Incorrect email or password");
   },
-
 };
 
 /**
  * @typedef User
  */
-module.exports = mongoose.model('User', userSchema);
+module.exports = mongoose.model("User", userSchema);

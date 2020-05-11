@@ -4,6 +4,9 @@ const { mongo } = require("./src/config/vars");
 const User = require("./src/models/user.model");
 const Message = require("./src/models/message.model");
 
+console.log(
+  "****************************\n******** seeding begins ********\n*****************************"
+);
 const messagesSeedData = () => {
   const seedData = [];
   for (let i = 0; i <= 10; i += 1) {
@@ -34,13 +37,21 @@ const usersSeedData = {
 };
 
 mongoose.connect(mongo.uri, {
+  poolSize: 10,
+  bufferMaxEntries: 0,
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
 
-Message.deleteMany({}).then(() => Message.insertMany(messagesSeedData()));
+Message.deleteMany({})
+  .then(() => Message.insertMany(messagesSeedData()))
+  .then(() => console.log("seeding messages done"));
 User.deleteMany({})
   .then(() => User.create(usersSeedData))
-  .then(() => console.log("seeding done"));
-
-mongoose.connection.close();
+  .then(() => {
+    console.log("seeding users done");
+    mongoose.connection.close();
+    console.log(
+      "****************************\n******** seeding ends ********\n*****************************"
+    );
+  });
