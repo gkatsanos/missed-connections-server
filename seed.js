@@ -42,3 +42,5 @@ Message.deleteMany({}).then(() => Message.insertMany(messagesSeedData()));
 User.deleteMany({})
   .then(() => User.create(usersSeedData))
   .then(() => console.log("seeding done"));
+
+mongoose.connection.close();
