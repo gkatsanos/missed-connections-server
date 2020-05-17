@@ -62,7 +62,7 @@
     "dotenv-safe": "^4.0.4",
     "express": "^4.15.2",
     "express-session": "^1.15.5",
-    "express-validator": "6.0.0",
+    "express-validator": "6.5.0",
     "faker": "^4.1.0",
     "helmet": "^3.21.1",
     "http-status": "^1.0.1",
