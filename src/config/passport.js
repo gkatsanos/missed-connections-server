@@ -5,7 +5,7 @@ const User = require("../models/user.model");
 
 const jwtOptions = {
   secretOrKey: jwtSecret,
-  jwtFromRequest: ExtractJwt.fromAuthHeaderWithScheme("Bearer"),
+  jwtFromRequest: (req) => req.cookies['accessToken'],
 };
 
 async function verify(payload, done) {

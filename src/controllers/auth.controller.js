@@ -47,7 +47,7 @@ function sendValidationEmail(activationId, user) {
       from: '"Boilerplate Email Validation Service" <noreply@boilerplate.com>', // sender address
       to: receiverMail, // list of receivers
       subject: `${user.firstName} ${user.lastName}'s Validation`, // Subject line
-      html: `Hey ${user.firstName} ${user.lastName} <a href="${process.env.BASE_URI}auth/${activationId}">click this</a> to activate ${user.email}`, // html body
+      html: `Hey ${user.firstName} ${user.lastName} <a href="${process.env.BASE_URI}/auth/${activationId}">click this</a> to activate ${user.email}`, // html body
     };
 
     // send mail with defined transport object
@@ -93,6 +93,7 @@ exports.login = async (req, res, next) => {
     const { user, accessToken } = await User.findAndGenerateToken(req.body);
     const token = generateTokenResponse(user, accessToken);
     const userTransformed = user.transform();
+    res.cookie('accessToken', accessToken, { secure: false, httpOnly: true, maxAge: 900000 });
     return res.json({ token, user: userTransformed });
   } catch (err) {
     return next(err, req, res, next);

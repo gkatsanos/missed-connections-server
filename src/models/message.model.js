@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
-const mongoosePaginate = require("mongoose-paginate");
-const mongooseHidden = require("mongoose-hidden")();
+const mongoosePaginate = require("mongoose-paginate-v2");
+const mongooseHidden = require("mongoose-hidden")({ defaultHidden: { password: true } });
 
 /**
  * Message Schema

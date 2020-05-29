@@ -7,9 +7,9 @@ const {
 } = require("express-validator/check");
 
 exports.authorization = [
-  header("Authorization")
+  header("Cookie")
     .exists()
-    .withMessage("Authorization header missing, please login"),
+    .withMessage("Cookie header missing, please login"),
   (req, res, next) => {
     const errorFormatter = ({ msg, param }) => ({
       statusCode: 401,

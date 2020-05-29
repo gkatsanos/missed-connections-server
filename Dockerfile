@@ -1,6 +1,6 @@
-FROM node:10-jessie
+FROM node:14-stretch
 
-EXPOSE 3000
+EXPOSE 3001
 
 ARG NODE_ENV
 ENV NODE_ENV $NODE_ENV

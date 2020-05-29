@@ -9,7 +9,7 @@ console.log(
 );
 const messagesSeedData = () => {
   const seedData = [];
-  for (let i = 0; i <= 10; i += 1) {
+  for (let i = 0; i < 10; i += 1) {
     seedData.push({
       location: {
         type: "Point",

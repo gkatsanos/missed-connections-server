@@ -6,9 +6,10 @@ const methodOverride = require("method-override");
 const cors = require("cors");
 const helmet = require("helmet");
 const passport = require("passport");
+const cookieParser = require("cookie-parser");
 const routes = require("../routes/index");
 const jwtStrategy = require("./passport");
-const { logs } = require("./vars");
+const { logs, BASE_URI } = require("./vars");
 const error = require("../middlewares/error");
 
 /**
@@ -35,8 +36,12 @@ app.use(methodOverride());
 app.use(helmet());
 
 // enable CORS - Cross Origin Resource Sharing
-app.use(cors());
+app.use(cors({
+    origin: `${process.env.BASE_URI}`,
+    credentials: true
+}));
 
+app.use(cookieParser());
 app.use(passport.initialize());
 passport.use("jwt", jwtStrategy);
 

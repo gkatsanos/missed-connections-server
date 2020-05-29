@@ -41,7 +41,7 @@ const userSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
-    gender: String,
+    gender: String, // @TODO find another data-structure for this
     activationId: String,
   },
   {
