@@ -32,7 +32,7 @@ module.exports = {
       return module.exports.responder(boomedError, req, res);
     }
     const boomedError = new Boom("Validation failed", {
-      statusCode: 422,
+      statusCode: err[0].statusCode || 422,
       data: err,
     });
     return module.exports.responder(boomedError, req, res);
