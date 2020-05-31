@@ -6,9 +6,9 @@ module.exports = {
    * Error responder. Send stacktrace only during development
    * @public
    */
-  responder: (err, req, res, next) => {
+  responder: (err, req, res) => {
     res.status(err.output.payload.statusCode);
-    const formattedResponse = { errors: err.data || [err.output.payload] };
+    const formattedResponse = { errors: err.data.message || [err.output.payload] };
     res.json(formattedResponse);
   },
 
@@ -32,7 +32,7 @@ module.exports = {
       return module.exports.responder(boomedError, req, res);
     }
     const boomedError = new Boom("Validation failed", {
-      statusCode: err[0].statusCode || 422,
+      statusCode: err && err[0] && err[0].statusCode || 422,
       data: err,
     });
     return module.exports.responder(boomedError, req, res);
