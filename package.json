@@ -68,7 +68,7 @@
     "http-status": "^1.0.1",
     "jwt-simple": "0.5.1",
     "lodash": "4.17.13",
-    "method-override": "2.3.10",
+    "method-override": "3.0.0",
     "moment-timezone": "0.5.13",
     "mongod": "2.0.0",
     "mongodb": "3.1.13",
