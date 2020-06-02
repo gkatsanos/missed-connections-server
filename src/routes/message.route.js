@@ -2,36 +2,28 @@ const express = require("express");
 const controller = require("../controllers/message.controller");
 const { authorize } = require("../middlewares/auth");
 const validate = require("../validations/message.validation");
-
 const router = express.Router();
 
-router
-  .route("/list")
-  /**
-   * @api {get} /messages List Messages
-   * @apiDescription Get a list of Messages
-   * @apiVersion 1.0.0
-   * @apiName ListMessages
-   * @apiGroup Message
-   * @apiPermission admin
-   *
-   * @apiHeader {String} Athorization  User's access token
-   *
-   * @apiParam  {Number{1-}}         [page=1]     List page
-   * @apiParam  {Number{1-100}}      [perPage=1]  Users per page
-   * @apiParam  {String}             [name]       User's name
-   * @apiParam  {String}             [email]      User's email
-   * @apiParam  {String=user,admin}  [role]       User's role
-   *
-   * @apiSuccess {Object[]} users List of users.
-   *
-   * @apiError (Unauthorized 401)  Unauthorized  Only authenticated users can access the data
-   * @apiError (Forbidden 403)     Forbidden     Only admins can access the data
-   */
-  .get(validate.authorization, authorize(), controller.list);
 
+/**
+ * @api {get} /messages/list/:page List Messages Paginated
+ * @apiDescription Get a list of Paginated Messages
+ * @apiVersion 1.0.0
+ * @apiName ListMessagesPaginated
+ * @apiGroup Message
+ * @apiPermission user
+ *
+ * @apiHeader {String} Cookie  Cookie with access token
+ *
+ * @apiParam  {Number{1-}} page List page
+ *
+ * @apiSuccess {Object[]} messages List of messages.
+ *
+ * @apiError (Unauthorized 401)  Unauthorized  Only authenticated users can access the data
+ * @apiError (Unprocessable Entity 422) Unprocessable Entity Badly formed request or missing required header or body param
+ */
 router
-  .route("/list/page/:pageNum")
+  .route("/list/:page")
   .get(validate.authorization, authorize(), controller.list);
 
 router

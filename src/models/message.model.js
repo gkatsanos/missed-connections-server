@@ -7,10 +7,6 @@ const mongooseHidden = require("mongoose-hidden")({ defaultHidden: { password: t
  * @private
  */
 const messageSchema = new mongoose.Schema({
-  username: {
-    type: String,
-    maxlength: 128,
-  },
   location: {
     type: {
       type: String, // Don't do `{ location: { type: String } }`
@@ -30,6 +26,10 @@ const messageSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  user_id: {
+    type: mongoose.Types.ObjectId,
+    required: true,
+  }
 });
 
 messageSchema.statics = {

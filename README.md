@@ -33,14 +33,6 @@ The Server Part of a Vue/Mongo/Express/Node application.
 
 ## Getting Started
 
-Clone the repo and make it yours:
-
-```bash
-git clone --depth 1 https://github.com/gkatsanos/isawyou-server
-cd isawyou-server
-rm -rf .git
-```
-
 Install dependencies:
 
 ```bash

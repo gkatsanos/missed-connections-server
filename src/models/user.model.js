@@ -41,13 +41,21 @@ const userSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
-    gender: String, // @TODO find another data-structure for this
+    gender: {
+      type: String,
+      enum: ['male', 'female', 'transgender', 'neutral', 'non-binary']
+    },
+    messages_ids: {
+      type: Array,
+    },
     activationId: String,
   },
   {
     timestamps: true,
   }
 );
+
+userSchema.index({ message_id: 1 });
 
 userSchema.pre("save", async function save(next) {
   try {

@@ -358,15 +358,15 @@
   },
   {
     "type": "get",
-    "url": "/messages",
-    "title": "List Messages",
-    "description": "<p>Get a list of Messages</p>",
+    "url": "/messages/list/:page",
+    "title": "List Messages Paginated",
+    "description": "<p>Get a list of Paginated Messages</p>",
     "version": "1.0.0",
-    "name": "ListMessages",
+    "name": "ListMessagesPaginated",
     "group": "Message",
     "permission": [
       {
-        "name": "admin"
+        "name": "user"
       }
     ],
     "header": {
@@ -376,8 +376,8 @@
             "group": "Header",
             "type": "String",
             "optional": false,
-            "field": "Athorization",
-            "description": "<p>User's access token</p>"
+            "field": "Cookie",
+            "description": "<p>Cookie with access token</p>"
           }
         ]
       }
@@ -389,41 +389,9 @@
             "group": "Parameter",
             "type": "Number",
             "size": "1-",
-            "optional": true,
+            "optional": false,
             "field": "page",
-            "defaultValue": "1",
             "description": "<p>List page</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "Number",
-            "size": "1-100",
-            "optional": true,
-            "field": "perPage",
-            "defaultValue": "1",
-            "description": "<p>Users per page</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": true,
-            "field": "name",
-            "description": "<p>User's name</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": true,
-            "field": "email",
-            "description": "<p>User's email</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "String",
-            "allowedValues": ["user", "admin"],
-            "optional": true,
-            "field": "role",
-            "description": "<p>User's role</p>"
           }
         ]
       }
@@ -435,8 +403,8 @@
             "group": "Success 200",
             "type": "Object[]",
             "optional": false,
-            "field": "users",
-            "description": "<p>List of users.</p>"
+            "field": "messages",
+            "description": "<p>List of messages.</p>"
           }
         ]
       }
@@ -451,152 +419,17 @@
             "description": "<p>Only authenticated users can access the data</p>"
           }
         ],
-        "Forbidden 403": [
+        "Unprocessable Entity 422": [
           {
-            "group": "Forbidden 403",
+            "group": "Unprocessable Entity 422",
             "optional": false,
-            "field": "Forbidden",
-            "description": "<p>Only admins can access the data</p>"
+            "field": "Unprocessable",
+            "description": "<p>Entity Badly formed request or missing required header or body param</p>"
           }
         ]
       }
     },
     "filename": "src/routes/message.route.js",
     "groupTitle": "Message"
-  },
-  {
-    "type": "post",
-    "url": "/users",
-    "title": "Create User",
-    "description": "<p>Create a new user</p>",
-    "version": "1.0.0",
-    "name": "CreateUser",
-    "group": "User",
-    "permission": [
-      {
-        "name": "admin"
-      }
-    ],
-    "header": {
-      "fields": {
-        "Header": [
-          {
-            "group": "Header",
-            "type": "String",
-            "optional": false,
-            "field": "Athorization",
-            "description": "<p>User's access token</p>"
-          }
-        ]
-      }
-    },
-    "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "email",
-            "description": "<p>User's email</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "String",
-            "size": "6..128",
-            "optional": false,
-            "field": "password",
-            "description": "<p>User's password</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "String",
-            "size": "..128",
-            "optional": true,
-            "field": "name",
-            "description": "<p>User's name</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "String",
-            "allowedValues": ["user", "admin"],
-            "optional": true,
-            "field": "role",
-            "description": "<p>User's role</p>"
-          }
-        ]
-      }
-    },
-    "success": {
-      "fields": {
-        "Created 201": [
-          {
-            "group": "Created 201",
-            "type": "String",
-            "optional": false,
-            "field": "id",
-            "description": "<p>User's id</p>"
-          },
-          {
-            "group": "Created 201",
-            "type": "String",
-            "optional": false,
-            "field": "name",
-            "description": "<p>User's name</p>"
-          },
-          {
-            "group": "Created 201",
-            "type": "String",
-            "optional": false,
-            "field": "email",
-            "description": "<p>User's email</p>"
-          },
-          {
-            "group": "Created 201",
-            "type": "String",
-            "optional": false,
-            "field": "role",
-            "description": "<p>User's role</p>"
-          },
-          {
-            "group": "Created 201",
-            "type": "Date",
-            "optional": false,
-            "field": "createdAt",
-            "description": "<p>Timestamp</p>"
-          }
-        ]
-      }
-    },
-    "error": {
-      "fields": {
-        "Bad Request 400": [
-          {
-            "group": "Bad Request 400",
-            "optional": false,
-            "field": "ValidationError",
-            "description": "<p>Some parameters may contain invalid values</p>"
-          }
-        ],
-        "Unauthorized 401": [
-          {
-            "group": "Unauthorized 401",
-            "optional": false,
-            "field": "Unauthorized",
-            "description": "<p>Only authenticated users can create the data</p>"
-          }
-        ],
-        "Forbidden 403": [
-          {
-            "group": "Forbidden 403",
-            "optional": false,
-            "field": "Forbidden",
-            "description": "<p>Only admins can create the data</p>"
-          }
-        ]
-      }
-    },
-    "filename": "src/routes/message.route.js",
-    "groupTitle": "User"
   }
 ]

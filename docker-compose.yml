@@ -4,7 +4,7 @@ services:
     build: .
     image: gkatsanos/server
     environment:
-      - MONGO_URI=mongodb://mongodb:27017/isawyou
+      - MONGO_URI=mongodb://mongodb:27017/missed-connections
     volumes:
       - .:/app
       - /app/node_modules/

@@ -4,7 +4,7 @@ services:
     build: .
     command: yarn test:debug
     environment:
-      - MONGO_URI_TESTS=mongodb://mongodb:27017/isawyou-test
+      - MONGO_URI_TESTS=mongodb://mongodb:27017/missed-connections-test
     depends_on:
       - mongodb
     ports:

@@ -9,7 +9,7 @@ exports.list = async (req, res, next) => {
   try {
     const messages = await Message.paginate(
       {},
-      { page: req.params.pageNum, limit: 10, customLabels: { docs: 'items' } }
+      { page: req.params.page, limit: 10, customLabels: { docs: 'items' } }
     );
     res.json(messages);
   } catch (err) {

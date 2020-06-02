@@ -15,10 +15,10 @@
     "test": "NODE_ENV=test nyc --reporter=html --reporter=text mocha --timeout 20000 --recursive --exit src/tests",
     "test:debug": "NODE_ENV=test nyc --reporter=html --reporter=text mocha --inspect-brk=0.0.0.0 --timeout 20000 --recursive src/tests",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
-    "postcoverage": "opn coverage/lcov-report/index.html",
+    "postcoverage": "open-cli coverage/lcov-report/index.html",
     "postpublish": "git push --tags",
     "docs": "apidoc -i src -o docs",
-    "postdocs": "opn docs/index.html",
+    "postdocs": "open-cli docs/index.html",
     "docker:prod": "docker-compose -f docker-compose.yml -f docker-compose.prod.yml up",
     "docker:dev": "docker-compose -f docker-compose.yml -f docker-compose.dev.yml up --build",
     "docker:test": "docker-compose -f docker-compose.yml -f docker-compose.test.yml up --abort-on-container-exit",
@@ -84,7 +84,7 @@
     "uuid": "8.0.0"
   },
   "devDependencies": {
-    "apidoc": "^0.17.5",
+    "apidoc": "0.23.0",
     "chai": "4.2.0",
     "chai-as-promised": "7.1.1",
     "coveralls": "3.1.0",
@@ -94,7 +94,7 @@
     "mocha": "7.1.2",
     "nodemon": "2.0.3",
     "nyc": "11.9.0",
-    "opn-cli": "5.0.0",
+    "open-cli": "6.0.1",
     "sinon": "9.0.2",
     "sinon-chai": "3.5.0",
     "supertest": "3.4.2"
