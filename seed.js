@@ -4,8 +4,9 @@ const { mongo } = require("./src/config/vars");
 const User = require("./src/models/user.model");
 const Message = require("./src/models/message.model");
 const random = require("lodash/random");
+const bcrypt = require("bcryptjs");
 
-const sexes = ['male', 'female', 'transgender', 'neutral', 'non-binary'];
+const sexes = ["male", "female", "transgender", "neutral", "non-binary"];
 
 console.log(
   `********************************
@@ -35,10 +36,9 @@ function generateMessageSeedData() {
   }
   console.log(`Created ${messagesSeedData.length} messages`);
   return messagesSeedData;
-};
+}
 
-
-function generateUsersSeedData() {
+async function generateUsersSeedData() {
   // const seedData = [];
   for (let i = 0; i < 20; i += 1) {
     const user_id = mongoose.Types.ObjectId();
@@ -52,16 +52,27 @@ function generateUsersSeedData() {
       gender: sexes[random(sexes.length - 1)], // @TODO can faker do this?
       messages_ids: [messagesSeedData[i]._id],
     });
-    messagesSeedData[i].user_id = usersSeedData[i]._id;
+    messagesSeedData[i].user = usersSeedData[i]._id;
   }
+  const hash = await bcrypt.hash("1234", 10);
+  usersSeedData.push({
+    _id: mongoose.Types.ObjectId(),
+    email: "gkatsanos@gmail.com",
+    password: hash,
+    firstName: "George",
+    lastName: "Katsanos",
+    active: true,
+    gender: "male",
+    messages_ids: [messagesSeedData[1]._id],
+  });
   console.log(`Created ${usersSeedData.length} users`);
   return usersSeedData;
-};
+}
 
 generateMessageSeedData();
 generateUsersSeedData();
 
-mongoose.set('useCreateIndex', true);
+mongoose.set("useCreateIndex", true);
 mongoose.connect(mongo.uri, {
   poolSize: 10,
   bufferMaxEntries: 0,

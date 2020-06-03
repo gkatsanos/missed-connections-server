@@ -7,10 +7,7 @@ const Message = require("../models/message.model");
  */
 exports.list = async (req, res, next) => {
   try {
-    const messages = await Message.paginate(
-      {},
-      { page: req.params.page, limit: 10, customLabels: { docs: 'items' } }
-    );
+    const messages = await Message.getMessagesAndUsers(req);
     res.json(messages);
   } catch (err) {
     next(err);

@@ -45,9 +45,10 @@ const userSchema = new mongoose.Schema(
       type: String,
       enum: ['male', 'female', 'transgender', 'neutral', 'non-binary']
     },
-    messages_ids: {
-      type: Array,
-    },
+    messages_ids: [{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Message',
+    }],
     activationId: String,
   },
   {
