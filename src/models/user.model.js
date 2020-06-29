@@ -19,6 +19,13 @@ const userSchema = new mongoose.Schema(
       trim: true,
       lowercase: true,
     },
+    username: {
+      type: String,
+      required: true,
+      unique: true,
+      trim: true,
+      lowercase: true,
+    },
     password: {
       type: String,
       required: true,
@@ -43,12 +50,14 @@ const userSchema = new mongoose.Schema(
     },
     gender: {
       type: String,
-      enum: ['male', 'female', 'transgender', 'neutral', 'non-binary']
+      enum: ["male", "female", "transgender", "neutral", "non-binary"],
     },
-    messages_ids: [{
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Message',
-    }],
+    messages_ids: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Message",
+      },
+    ],
     activationId: String,
   },
   {

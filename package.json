@@ -52,6 +52,8 @@
     "starter project"
   ],
   "dependencies": {
+    "axios": "0.19.2",
+    "await-to-js": "2.1.1",
     "bcryptjs": "^2.4.3",
     "bluebird": "^3.5.0",
     "body-parser": "^1.17.0",
@@ -63,7 +65,7 @@
     "dotenv-safe": "^4.0.4",
     "express": "^4.15.2",
     "express-validator": "6.0.0",
-    "faker": "^4.1.0",
+    "faker": "4.1.0",
     "helmet": "^3.21.1",
     "http-status": "^1.0.1",
     "jwt-simple": "0.5.1",
@@ -81,6 +83,7 @@
     "passport-http-bearer": "1.0.1",
     "passport-jwt": "4.0.0",
     "pm2": "2.10.4",
+    "throttled-queue": "1.0.7",
     "uuid": "8.0.0"
   },
   "devDependencies": {

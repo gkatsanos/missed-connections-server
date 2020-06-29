@@ -25,11 +25,16 @@ function generateMessageSeedData() {
       _id: message_id,
       location: {
         type: "Point",
+        geocoded: `${faker.helpers.contextualCard().address.street}, ${
+          faker.helpers.contextualCard().address.city
+        }`,
+        // lon/lat generated return non-realistic human addresses
         coordinates: [
           parseFloat(faker.address.longitude()),
           parseFloat(faker.address.latitude()),
         ],
       },
+      seenDate: faker.date.past(),
       title: faker.lorem.words(5),
       body: faker.lorem.words(10),
     });
@@ -45,6 +50,7 @@ async function generateUsersSeedData() {
     usersSeedData.push({
       _id: user_id,
       email: faker.internet.email(),
+      username: faker.internet.userName(),
       password: faker.internet.password(),
       firstName: faker.name.firstName(),
       lastName: faker.name.lastName(),
@@ -58,6 +64,7 @@ async function generateUsersSeedData() {
   usersSeedData.push({
     _id: mongoose.Types.ObjectId(),
     email: "gkatsanos@gmail.com",
+    username: "gkatsanos",
     password: hash,
     firstName: "George",
     lastName: "Katsanos",
