@@ -64,8 +64,11 @@ messageSchema.statics = {
     );
     return messages;
   },
-};
 
+  async getMessage(req) {
+    // @TODO implement get single message logic
+  },
+};
 /*
  faker returns random lat/lon and often dont correspond
  to real life addresses so the following has to be ditched.

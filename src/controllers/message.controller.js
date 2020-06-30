@@ -15,6 +15,20 @@ exports.list = async (req, res, next) => {
 };
 
 /**
+ * Get a single item
+ * @public
+ */
+exports.getMessage = async (req, res, next) => {
+  // @TODO implement get single message logic
+  try {
+    const message = await Message.getMessage(req);
+    res.json(message);
+  } catch (err) {
+    next(err);
+  }
+};
+
+/**
  * Create message
  * @public
  */
