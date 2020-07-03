@@ -4,7 +4,6 @@ const { authorize } = require("../middlewares/auth");
 const validate = require("../validations/message.validation");
 const router = express.Router();
 
-
 /**
  * @api {get} /messages/list/:page List Messages Paginated
  * @apiDescription Get a list of Paginated Messages
@@ -25,6 +24,10 @@ const router = express.Router();
 router
   .route("/list/:page")
   .get(validate.authorization, authorize(), controller.list);
+
+router
+  .route("/:id")
+  .get(validate.authorization, authorize(), controller.getMessage);
 
 router
   .route("/create")

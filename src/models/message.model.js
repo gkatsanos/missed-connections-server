@@ -66,7 +66,7 @@ messageSchema.statics = {
   },
 
   async getMessage(req) {
-    // @TODO implement get single message logic
+    return this.findById(req.params.id).populate("user");
   },
 };
 /*

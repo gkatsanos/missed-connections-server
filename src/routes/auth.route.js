@@ -1,6 +1,7 @@
 const express = require("express");
 const controller = require("../controllers/auth.controller");
 const validate = require("../validations/auth.validation");
+const { authorize } = require("../middlewares/auth");
 
 const router = express.Router();
 
@@ -83,7 +84,7 @@ router.route("/login").post(validate.auth, controller.login);
  * @apiError (Bad Request 400)  ValidationError  Some parameters may contain invalid values
  * @apiError (Unauthorized 401)  Unauthorized     Incorrect email or refreshToken
  */
-router.route("/refresh-token").post(controller.refresh);
+router.route("/refresh").post(authorize(), controller.refresh);
 
 router.route("/:activationId").get(controller.verify);
 

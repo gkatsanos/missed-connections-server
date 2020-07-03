@@ -131,6 +131,7 @@ userSchema.statics = {
     if (user && !user.active) {
       throw Boom.unauthorized("Inactive account");
     }
+    // @TODO is this safe?
     if (refreshObject && refreshObject.email === email) {
       return { user, accessToken: user.token() };
     }

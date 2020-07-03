@@ -5,8 +5,7 @@ const Boom = require("boom");
 const { v4: uuidv4 } = require("uuid");
 const User = require("../models/user.model");
 const RefreshToken = require("../models/refreshToken.model");
-const { jwtExpirationInterval } = require("../config/vars");
-const { env } = require("../config/vars");
+const { jwtExpirationInterval, env } = require("../config/vars");
 
 /**
  * Returns a formated object with tokens
@@ -93,7 +92,11 @@ exports.login = async (req, res, next) => {
     const { user, accessToken } = await User.findAndGenerateToken(req.body);
     const token = generateTokenResponse(user, accessToken);
     const userTransformed = user.transform();
-    res.cookie('accessToken', accessToken, { secure: false, httpOnly: true, maxAge: 900000 });
+    res.cookie("accessToken", accessToken, {
+      secure: false,
+      httpOnly: true,
+      maxAge: jwtExpirationInterval * 60000,
+    });
     return res.json({ token, user: userTransformed });
   } catch (err) {
     return next(err, req, res, next);
@@ -116,8 +119,14 @@ exports.refresh = async (req, res, next) => {
         email,
         refreshObject,
       });
-      const response = generateTokenResponse(user, accessToken);
-      return res.json(response);
+      const token = generateTokenResponse(user, accessToken);
+      const userTransformed = user.transform();
+      res.cookie("accessToken", accessToken, {
+        secure: false,
+        httpOnly: true,
+        maxAge: jwtExpirationInterval * 60000,
+      });
+      return res.json({ token, user: userTransformed });
     }
     const err = Boom.unauthorized("refreshToken expired");
     return next(err, req, res, next);
