@@ -68,7 +68,7 @@
     "faker": "4.1.0",
     "helmet": "^3.21.1",
     "http-status": "^1.0.1",
-    "jwt-simple": "0.5.1",
+    "jwt-simple": "0.5.6",
     "lodash": "4.17.13",
     "method-override": "2.3.10",
     "moment-timezone": "0.5.13",
