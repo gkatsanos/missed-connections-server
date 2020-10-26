@@ -1,4 +1,4 @@
-FROM node:14-stretch
+FROM node:15-stretch
 
 EXPOSE 3001
 
