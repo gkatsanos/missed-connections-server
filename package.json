@@ -69,7 +69,7 @@
     "helmet": "^3.21.1",
     "http-status": "^1.0.1",
     "jwt-simple": "0.5.1",
-    "lodash": "4.17.13",
+    "lodash": "4.17.21",
     "method-override": "2.3.10",
     "moment-timezone": "0.5.13",
     "mongod": "2.0.0",
