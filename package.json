@@ -64,7 +64,7 @@
     "cross-env": "^7.0.2",
     "dotenv-safe": "^4.0.4",
     "express": "^4.15.2",
-    "express-validator": "6.0.0",
+    "express-validator": "6.12.1",
     "faker": "4.1.0",
     "helmet": "^3.21.1",
     "http-status": "^1.0.1",
