@@ -74,7 +74,7 @@
     "moment-timezone": "0.5.13",
     "mongod": "2.0.0",
     "mongodb": "3.1.13",
-    "mongoose": "5.9.13",
+    "mongoose": "5.13.5",
     "mongoose-hidden": "1.6.0",
     "mongoose-paginate-v2": "1.3.9",
     "morgan": "1.9.1",
