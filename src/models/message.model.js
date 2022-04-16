@@ -3,7 +3,7 @@ const mongoosePaginate = require("mongoose-paginate-v2");
 const mongooseHidden = require("mongoose-hidden")({
   defaultHidden: { password: true },
 });
-const { reverseGeocode } = require("../config/api");
+// const { reverseGeocode } = require("../config/api");
 const to = require("await-to-js").default;
 const throttledQueue = require("throttled-queue");
 const throttle = throttledQueue(1, 3000);
